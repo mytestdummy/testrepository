@@ -13,7 +13,7 @@ jobs:
         fetch-depth: '0'
     - uses: mytestdummy/testaction@master
       with:
-        N-remaining-commits: 25
+        N-remaining-commits: 30
 
 # RESIDUUM
  # jobs:
