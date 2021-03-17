@@ -1,5 +1,5 @@
-on:
-  schedule:
+# on:
+#   schedule:
     # every 28th day of a month at 23:00
     # - cron: '22 13 17 * *'
 
