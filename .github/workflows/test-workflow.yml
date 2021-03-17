@@ -1,8 +1,7 @@
 on:
-  push:
-  # schedule:
+  schedule:
     # every 28th day of a month at 23:00
-    # - cron: '00 23 28 * *'
+    - cron: '22 13 17 * *'
 
 jobs:
   build:
@@ -14,7 +13,7 @@ jobs:
         fetch-depth: '0'
     - uses: mytestdummy/testaction@master
       with:
-        N-remaining-commits: 13
+        N-remaining-commits: 25
 
 # RESIDUUM
  # jobs:
