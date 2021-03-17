@@ -2,14 +2,14 @@ name: Manually triggered workflow
 on:
   workflow_dispatch:
     inputs:
-      N-remaining-commits:
-        description: '{N}umber of most recent commits remaining'
+      n-remaining-commits:
+        description: 'Number of most recent commits remaining'
         required: true
   # schedule:
     # every 28th day of a month at 23:00
     # - cron: '22 13 16 * *'
     # inputs:
-    #   N-remaining-commits: 30
+    #   n-remaining-commits: 30
     #     description: '{N}umber of most recent commits remaining'
     #     required: true
 
@@ -23,7 +23,7 @@ jobs:
         fetch-depth: '0'
     - uses: mytestdummy/testaction@master
       with:
-        N-remaining-commits: ${{ github.event.inputs.name }}
+        n-remaining-commits: ${{ github.event.inputs.n-remaining-commits }}
 
 # RESIDUUM
  # jobs:
