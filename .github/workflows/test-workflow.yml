@@ -9,7 +9,7 @@ jobs:
     steps:
     - uses: actions/checkout@v2
       with:
-        token: ${{ secrets.YOUR_REPO_TOKEN }}
+        token: ${{ secrets.YOUR_TOKEN }}
         fetch-depth: '0'
     - uses: mytestdummy/testaction@master
       with:
