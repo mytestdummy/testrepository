@@ -3,11 +3,12 @@ on:
   workflow_dispatch:
     inputs:
       new-first-commit:
-        description: 'New first commit (e.g. 6c7d988, HEAD~15 etc.)'
+        description: 'New first commit'
         required: true
       branch:
         description: 'Branch to be pruned'
         required: true
+        default: 'master'
   # schedule:
     # every 28th day of a month at 23:00
     # - cron: '22 13 16 * *'
