@@ -3,8 +3,9 @@ on:
   workflow_dispatch:
     inputs:
       new-first-commit:
-        description: 'New first commit
-        (e.g. 6c7d988, HEAD~15 etc.)'
+        description: |
+          'New first commit
+          (insert e.g. 6c7d988 or HEAD~15 etc.)'
         required: true
       branch:
         description: 'Branch to be pruned'
