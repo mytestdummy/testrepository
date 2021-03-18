@@ -2,14 +2,17 @@ name: Manually triggered workflow
 on:
   workflow_dispatch:
     inputs:
-      n-remaining-commits:
-        description: 'Number of most recent commits remaining'
+      new-first-commit:
+        description: 'New first commit (insert e.g. 6c7d988 or HEAD~15 etc.)'
+        required: true
+      branch:
+        description: 'Branch to be pruned'
         required: true
   # schedule:
     # every 28th day of a month at 23:00
     # - cron: '22 13 16 * *'
     # inputs:
-    #   n-remaining-commits: 30
+    #   new-first-commit: 30
     #     description: '{N}umber of most recent commits remaining'
     #     required: true
 
@@ -21,9 +24,11 @@ jobs:
       with:
         token: ${{ secrets.YOUR_TOKEN }}
         fetch-depth: '0'
+        ref: ${{ github.event.inputs.branch }}
     - uses: mytestdummy/testaction@master
       with:
-        n-remaining-commits: ${{ github.event.inputs.n-remaining-commits }}
+        new-first-commit: ${{ github.event.inputs.new-first-commit }}
+        branch: ${{ github.event.inputs.branch }}
 
 # RESIDUUM
  # jobs:
