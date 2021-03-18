@@ -1,0 +1,40 @@
+on:
+  push:
+  # schedule:
+    # every 28th day of a month at 23:00
+    # - cron: '00 23 28 * *'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+      with:
+        token: ${{ secrets.YOUR_REPO_TOKEN }}
+        fetch-depth: '0'
+    - uses: mytestdummy/testaction@master
+      with:
+        N-remaining-commits: 13
+
+# RESIDUUM
+ # jobs:
+  # build:
+    # runs-on: ubuntu-latest
+    # steps:
+    # - uses: actions/checkout@master
+      # # with:
+      # #   repository: 'sitdisch/cloud'
+      # #   persist-credentials: false
+    # - name: Clean Process
+      # run: |
+    # - name: Commit Cleaning
+      # run: |
+      #   git config --local user.email "41898282+github-actions[bot]@users.noreply.github.com"
+      #   git config --local user.name "github-actions[bot]"
+      #   git add .
+      #   git commit -am "Repository History Cleaned | Monthly"
+    # - name: Push Results
+      # uses: ad-m/github-push-action@master
+      # # with:
+      # #   repository: 'sitdisch/cloud'
+      #   # github_token: ${{ secrets.SITDISCH_WORKFLOW_REPO_TOKEN }}
