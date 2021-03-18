@@ -1,5 +1,6 @@
 name: Manually triggered workflow
 on:
+  push:
   workflow_dispatch:
     inputs:
       n-remaining-commits:
@@ -23,7 +24,8 @@ jobs:
         fetch-depth: '0'
     - uses: mytestdummy/testaction@master
       with:
-        n-remaining-commits: ${{ github.event.inputs.n-remaining-commits }}
+        n-remaining-commits: 31
+        # n-remaining-commits: ${{ github.event.inputs.n-remaining-commits }}
 
 # RESIDUUM
  # jobs:
