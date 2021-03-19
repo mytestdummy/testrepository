@@ -7,9 +7,8 @@ env:
   
 # DEFINE YOUR WORKFLOW TRIGGERS HERE
 on:
-  # schedule:
-    # every 28th day of a month at 23:00
-    # - cron: '22 13 16 * *'
+  schedule:
+    - cron: '00 17 * * *' # e.g. every 28th day of a month at 23:00
   # YOU DON'T HAVE TO DEFINE ANYTHING FOR THE WORKFLOW_DISPATCH HERE
   workflow_dispatch:
     inputs:
@@ -20,11 +19,10 @@ on:
         description: 'Branch to be pruned'
         required: true
         default: 'master'
-  push:
 
 # YOU DON'T HAVE TO DEFINE ANYTHING HERE ;)
 jobs:
-  manual_commits_cutting:
+  manual_cutting:
     if: ${{ github.event.inputs.new-first-commit }}
     runs-on: ubuntu-latest
     steps:
@@ -37,7 +35,7 @@ jobs:
         with:
           new-first-commit: ${{ github.event.inputs.new-first-commit }}
           branch: ${{ github.event.inputs.branch }}
-  no_manual_commits_cutting:
+  no_manual_cutting:
     if: ${{ github.event.inputs.new-first-commit }} == false
     runs-on: ubuntu-latest
     steps:
