@@ -43,7 +43,7 @@ jobs:
         with:
           token: ${{ secrets.YOUR_TOKEN }}
           fetch-depth: '0'
-          ref: ${{ env.CC_NEW-FIRST-COMMIT }}
+          ref: ${{ env.CC_BRANCH }}
       - uses: mytestdummy/testaction@master
         with:
           new-first-commit: ${{ env.CC_NEW-FIRST-COMMIT }}
