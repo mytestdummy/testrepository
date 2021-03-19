@@ -1,7 +1,8 @@
 name: Manually triggered workflow
 env:
-  CC_NEW-FIRST-COMMIT: HEAD~17
-  CC_BRANCH: test
+  if: ${{ github.event.inputs.new-first-commit }} == false
+  NEW-FIRST-COMMIT: HEAD~17
+  BRANCH: test
 on:
   workflow_dispatch:
     inputs:
@@ -22,32 +23,32 @@ on:
     #     required: true
 
 jobs:
-  manual_commits_cutting:
-    if: ${{ github.event.inputs.new-first-commit }}
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v2
-        with:
-          token: ${{ secrets.YOUR_TOKEN }}
-          fetch-depth: '0'
-          ref: ${{ github.event.inputs.branch }}
-      - uses: mytestdummy/testaction@master
-        with:
-          new-first-commit: ${{ github.event.inputs.new-first-commit }}
-          branch: ${{ github.event.inputs.branch }}
+  # manual_commits_cutting:
+  #   if: ${{ github.event.inputs.new-first-commit }}
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - uses: actions/checkout@v2
+  #       with:
+  #         token: ${{ secrets.YOUR_TOKEN }}
+  #         fetch-depth: '0'
+  #         ref: ${{ github.event.inputs.branch }}
+  #     - uses: mytestdummy/testaction@master
+  #       with:
+  #         new-first-commit: ${{ github.event.inputs.new-first-commit }}
+  #         branch: ${{ github.event.inputs.branch }}
   no_manual_commits_cutting:
-    if: ${{ github.event.inputs.new-first-commit }} == false
+    # if: ${{ github.event.inputs.new-first-commit }} == false
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
         with:
           token: ${{ secrets.YOUR_TOKEN }}
           fetch-depth: '0'
-          ref: ${{ env.CC_BRANCH }}
+          ref: ${{ env.BRANCH }}
       - uses: mytestdummy/testaction@master
         with:
-          new-first-commit: ${{ env.CC_NEW-FIRST-COMMIT }}
-          branch: ${{ env.CC_BRANCH }}
+          new-first-commit: ${{ env.NEW-FIRST-COMMIT }}
+          branch: ${{ env.BRANCH }}
 
 # RESIDUUM
  # jobs:
