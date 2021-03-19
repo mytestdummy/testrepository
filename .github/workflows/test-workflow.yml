@@ -1,9 +1,16 @@
 name: Manually triggered workflow
+
+# DEFINE YOUR INPUTS FOR NO DISPATCH WORKFLOWS HERE
 env:
-  if: ${{ github.event.inputs.new-first-commit }} == false
-  NEW-FIRST-COMMIT: HEAD~17
-  BRANCH: test
+  NEW-FIRST-COMMIT: HEAD~17 # e.g. HEAD~20
+  BRANCH: test # e.g. master
+  
+# DEFINE YOUR WORKFLOW TRIGGERS HERE
 on:
+  # schedule:
+    # every 28th day of a month at 23:00
+    # - cron: '22 13 16 * *'
+  # YOU DON'T HAVE TO DEFINE ANYTHING FOR THE WORKFLOW_DISPATCH HERE
   workflow_dispatch:
     inputs:
       new-first-commit:
@@ -14,30 +21,24 @@ on:
         required: true
         default: 'master'
   push:
-  # schedule:
-    # every 28th day of a month at 23:00
-    # - cron: '22 13 16 * *'
-    # inputs:
-    #   new-first-commit: 30
-    #     description: '{N}umber of most recent commits remaining'
-    #     required: true
 
+# YOU DON'T HAVE TO DEFINE ANYTHING HERE ;)
 jobs:
-  # manual_commits_cutting:
-  #   if: ${{ github.event.inputs.new-first-commit }}
-  #   runs-on: ubuntu-latest
-  #   steps:
-  #     - uses: actions/checkout@v2
-  #       with:
-  #         token: ${{ secrets.YOUR_TOKEN }}
-  #         fetch-depth: '0'
-  #         ref: ${{ github.event.inputs.branch }}
-  #     - uses: mytestdummy/testaction@master
-  #       with:
-  #         new-first-commit: ${{ github.event.inputs.new-first-commit }}
-  #         branch: ${{ github.event.inputs.branch }}
+  manual_commits_cutting:
+    if: ${{ github.event.inputs.new-first-commit }}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          token: ${{ secrets.YOUR_TOKEN }}
+          fetch-depth: '0'
+          ref: ${{ github.event.inputs.branch }}
+      - uses: mytestdummy/testaction@master
+        with:
+          new-first-commit: ${{ github.event.inputs.new-first-commit }}
+          branch: ${{ github.event.inputs.branch }}
   no_manual_commits_cutting:
-    # if: ${{ github.event.inputs.new-first-commit }} == false
+    if: ${{ github.event.inputs.new-first-commit }} == false
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -49,26 +50,3 @@ jobs:
         with:
           new-first-commit: ${{ env.NEW-FIRST-COMMIT }}
           branch: ${{ env.BRANCH }}
-
-# RESIDUUM
- # jobs:
-  # build:
-    # runs-on: ubuntu-latest
-    # steps:
-    # - uses: actions/checkout@master
-      # # with:
-      # #   repository: 'sitdisch/cloud'
-      # #   persist-credentials: false
-    # - name: Clean Process
-      # run: |
-    # - name: Commit Cleaning
-      # run: |
-      #   git config --local user.email "41898282+github-actions[bot]@users.noreply.github.com"
-      #   git config --local user.name "github-actions[bot]"
-      #   git add .
-      #   git commit -am "Repository History Cleaned | Monthly"
-    # - name: Push Results
-      # uses: ad-m/github-push-action@master
-      # # with:
-      # #   repository: 'sitdisch/cloud'
-      #   # github_token: ${{ secrets.SITDISCH_WORKFLOW_REPO_TOKEN }}
