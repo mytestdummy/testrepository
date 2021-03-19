@@ -36,7 +36,7 @@ jobs:
           new-first-commit: ${{ github.event.inputs.new-first-commit }}
           branch: ${{ github.event.inputs.branch }}
   no_manual_commits_cutting:
-    if: !${{ github.event.inputs.new-first-commit }}
+    if: ${{ github.event.inputs.new-first-commit }} == false
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
