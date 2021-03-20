@@ -26,9 +26,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - if: ${{ github.event.inputs.new-first-commit }}
-        env:
-          NEW-FIRST-COMMIT: ${{ github.event.inputs.new-first-commit }}
-          BRANCH: ${{ github.event.inputs.branch }}
+        run: |
+          env.NEW-FIRST-COMMIT=${{ github.event.inputs.new-first-commit }}
+          env.BRANCH=${{ github.event.inputs.branch }}
       - uses: actions/checkout@v2
         with:
           token: ${{ secrets.YOUR_TOKEN }}
