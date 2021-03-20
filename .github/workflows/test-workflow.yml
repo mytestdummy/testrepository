@@ -4,6 +4,8 @@ name: Manually triggered workflow
 env:
   NEW-FIRST-COMMIT: HEAD~17 # e.g. HEAD~20
   BRANCH: test # e.g. master
+  USER-NAME: github-actions[bot]
+  USER-EMAIL: 41898282+github-actions[bot]@users.noreply.github.com
   
 # DEFINE YOUR WORKFLOW TRIGGERS HERE
 on:
@@ -11,9 +13,6 @@ on:
     - cron: '30 23 * * *' # e.g. every 28th day of a month at 23:00
   # YOU DON'T HAVE TO DEFINE ANYTHING FOR THE WORKFLOW_DISPATCH HERE
   workflow_dispatch:
-    env:
-      NEW-FIRST-COMMIT: ${{ github.event.inputs.new-first-commit }}
-      BRANCH: ${{ github.event.inputs.branch }}
     inputs:
       new-first-commit:
         description: 'New first commit'
@@ -22,22 +21,33 @@ on:
         description: 'Branch to be pruned'
         required: true
         default: 'master'
+      user-name:
+        description: 'User who commits'
+        required: true
+        default: 'github-actions[bot]'
+      user-email:
+        description: 'User e-mail address'
+        required: true
+        default: '41898282+github-actions[bot]@users.noreply.github.com'
 
 # YOU DON'T HAVE TO DEFINE ANYTHING HERE ;)
 jobs:
-  commits_cutting:
+  commits-cutting:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
         with:
           token: ${{ secrets.YOUR_TOKEN }}
           fetch-depth: '0'
-          ref: ${{ env.BRANCH }}
+          ref: ${{ github.event.inputs.branch || env.BRANCH }}
       - uses: mytestdummy/testaction@master
         with:
-          new-first-commit: ${{ env.NEW-FIRST-COMMIT }}
-          branch: ${{ env.BRANCH }}
-  # manual_cutting:
+          new-first-commit: ${{ github.event.inputs.new-first-commit || env.NEW-FIRST-COMMIT }}
+          branch: ${{ github.event.inputs.branch || env.BRANCH }}
+          user-name: ${{ github.event.inputs.user-name || env.USER-NAME }}
+          user-email: ${{ github.event.inputs.user-email || env.USER-EMAIL }}
+
+  # manual-cutting:
   #   if: ${{ github.event.inputs.new-first-commit }}
   #   runs-on: ubuntu-latest
   #   steps:
@@ -50,7 +60,9 @@ jobs:
   #       with:
   #         new-first-commit: ${{ github.event.inputs.new-first-commit }}
   #         branch: ${{ github.event.inputs.branch }}
-  # no_manual_cutting:
+  #         user-name:
+  #         user-email:
+  # no-manual-cutting:
   #   if: ${{ github.event.inputs.new-first-commit }} == false
   #   runs-on: ubuntu-latest
   #   steps:
@@ -63,3 +75,5 @@ jobs:
   #       with:
   #         new-first-commit: ${{ env.NEW-FIRST-COMMIT }}
   #         branch: ${{ env.BRANCH }}
+  #         user-name: ${{ env.USER-NAME }}
+  #         user-email: ${{ env.USER-EMAIL }}
