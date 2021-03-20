@@ -22,29 +22,44 @@ on:
 
 # YOU DON'T HAVE TO DEFINE ANYTHING HERE ;)
 jobs:
-  manual_cutting:
-    if: ${{ github.event.inputs.new-first-commit }}
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v2
-        with:
-          token: ${{ secrets.YOUR_TOKEN }}
-          fetch-depth: '0'
-          ref: ${{ github.event.inputs.branch }}
-      - uses: mytestdummy/testaction@master
-        with:
-          new-first-commit: ${{ github.event.inputs.new-first-commit }}
-          branch: ${{ github.event.inputs.branch }}
-  no_manual_cutting:
-    if: ${{ github.event.inputs.new-first-commit }} == false
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v2
-        with:
-          token: ${{ secrets.YOUR_TOKEN }}
-          fetch-depth: '0'
-          ref: ${{ env.BRANCH }}
-      - uses: mytestdummy/testaction@master
-        with:
-          new-first-commit: ${{ env.NEW-FIRST-COMMIT }}
-          branch: ${{ env.BRANCH }}
+  runs-on: ubuntu-latest
+  steps:
+    - if: ${{ github.event.inputs.new-first-commit }}
+      env:
+        NEW-FIRST-COMMIT: ${{ github.event.inputs.new-first-commit }}
+        BRANCH: ${{ github.event.inputs.branch }}
+    - uses: actions/checkout@v2
+      with:
+        token: ${{ secrets.YOUR_TOKEN }}
+        fetch-depth: '0'
+        ref: ${{ env.BRANCH }}
+    - uses: mytestdummy/testaction@master
+      with:
+        new-first-commit: ${{ env.NEW-FIRST-COMMIT }}
+        branch: ${{ env.BRANCH }}
+  # manual_cutting:
+  #   if: ${{ github.event.inputs.new-first-commit }}
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - uses: actions/checkout@v2
+  #       with:
+  #         token: ${{ secrets.YOUR_TOKEN }}
+  #         fetch-depth: '0'
+  #         ref: ${{ github.event.inputs.branch }}
+  #     - uses: mytestdummy/testaction@master
+  #       with:
+  #         new-first-commit: ${{ github.event.inputs.new-first-commit }}
+  #         branch: ${{ github.event.inputs.branch }}
+  # no_manual_cutting:
+  #   if: ${{ github.event.inputs.new-first-commit }} == false
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - uses: actions/checkout@v2
+  #       with:
+  #         token: ${{ secrets.YOUR_TOKEN }}
+  #         fetch-depth: '0'
+  #         ref: ${{ env.BRANCH }}
+  #     - uses: mytestdummy/testaction@master
+  #       with:
+  #         new-first-commit: ${{ env.NEW-FIRST-COMMIT }}
+  #         branch: ${{ env.BRANCH }}
