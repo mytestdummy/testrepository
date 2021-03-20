@@ -2,13 +2,13 @@ name: Manually triggered workflow
 
 # DEFINE YOUR INPUTS FOR NO DISPATCH WORKFLOWS HERE
 env:
-  NEW-FIRST-COMMIT: HEAD~17 # e.g. HEAD~20
+  NEW-FIRST-COMMIT: HEAD~8 # e.g. HEAD~20
   BRANCH: test # e.g. master
   
 # DEFINE YOUR WORKFLOW TRIGGERS HERE
 on:
   schedule:
-    - cron: '00 17 * * *' # e.g. every 28th day of a month at 23:00
+    - cron: '30 23 * * *' # e.g. every 28th day of a month at 23:00
   # YOU DON'T HAVE TO DEFINE ANYTHING FOR THE WORKFLOW_DISPATCH HERE
   workflow_dispatch:
     inputs:
