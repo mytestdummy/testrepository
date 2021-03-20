@@ -11,6 +11,9 @@ on:
     - cron: '30 23 * * *' # e.g. every 28th day of a month at 23:00
   # YOU DON'T HAVE TO DEFINE ANYTHING FOR THE WORKFLOW_DISPATCH HERE
   workflow_dispatch:
+    env:
+      NEW-FIRST-COMMIT: ${{ github.event.inputs.new-first-commit }}
+      BRANCH: ${{ github.event.inputs.branch }}
     inputs:
       new-first-commit:
         description: 'New first commit'
@@ -22,14 +25,9 @@ on:
 
 # YOU DON'T HAVE TO DEFINE ANYTHING HERE ;)
 jobs:
-  commit_cutting:
+  commits_cutting:
     runs-on: ubuntu-latest
     steps:
-      - if: ${{ github.event.inputs.new-first-commit }}
-        run: echo "test"
-        env:
-          NEW-FIRST-COMMIT: ${{ github.event.inputs.new-first-commit }}
-          BRANCH: ${{ github.event.inputs.branch }}
       - uses: actions/checkout@v2
         with:
           token: ${{ secrets.YOUR_TOKEN }}
