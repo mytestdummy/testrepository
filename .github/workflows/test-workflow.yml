@@ -22,21 +22,22 @@ on:
 
 # YOU DON'T HAVE TO DEFINE ANYTHING HERE ;)
 jobs:
-  runs-on: ubuntu-latest
-  steps:
-    - if: ${{ github.event.inputs.new-first-commit }}
-      env:
-        NEW-FIRST-COMMIT: ${{ github.event.inputs.new-first-commit }}
-        BRANCH: ${{ github.event.inputs.branch }}
-    - uses: actions/checkout@v2
-      with:
-        token: ${{ secrets.YOUR_TOKEN }}
-        fetch-depth: '0'
-        ref: ${{ env.BRANCH }}
-    - uses: mytestdummy/testaction@master
-      with:
-        new-first-commit: ${{ env.NEW-FIRST-COMMIT }}
-        branch: ${{ env.BRANCH }}
+  commit_cutting:
+    runs-on: ubuntu-latest
+    steps:
+      - if: ${{ github.event.inputs.new-first-commit }}
+        env:
+          NEW-FIRST-COMMIT: ${{ github.event.inputs.new-first-commit }}
+          BRANCH: ${{ github.event.inputs.branch }}
+      - uses: actions/checkout@v2
+        with:
+          token: ${{ secrets.YOUR_TOKEN }}
+          fetch-depth: '0'
+          ref: ${{ env.BRANCH }}
+      - uses: mytestdummy/testaction@master
+        with:
+          new-first-commit: ${{ env.NEW-FIRST-COMMIT }}
+          branch: ${{ env.BRANCH }}
   # manual_cutting:
   #   if: ${{ github.event.inputs.new-first-commit }}
   #   runs-on: ubuntu-latest
