@@ -1,18 +1,25 @@
 name: Manually triggered workflow
 
-# DEFINE YOUR INPUTS FOR NO DISPATCH WORKFLOWS HERE
+# 
+# DEFINE YOUR INPUTS FOR NO MANUAL DISPATCH WORKFLOWS HERE
+# 
 env:
-  NEW-FIRST-COMMIT: HEAD~17 # e.g. HEAD~20
-  BRANCH: test # e.g. master
-  USER-NAME: github-actions[bot]
-  USER-EMAIL: 41898282+github-actions[bot]@users.noreply.github.com
+  NOMANUAL:
+    NEW-FIRST-COMMIT: HEAD~17 # e.g. HEAD~20
+    BRANCH: test # e.g. master
+    USER-NAME: github-actions[bot]
+    USER-EMAIL: 41898282+github-actions[bot]@users.noreply.github.com
   
+# 
 # DEFINE YOUR WORKFLOW TRIGGERS HERE
+# 
 on:
   push:
   schedule:
     - cron: '30 23 * * *' # e.g. every 28th day of a month at 23:00
+  # 
   # YOU DON'T HAVE TO DEFINE ANYTHING FOR THE WORKFLOW_DISPATCH HERE
+  # 
   workflow_dispatch:
     inputs:
       new-first-commit:
@@ -31,7 +38,9 @@ on:
         required: true
         default: '41898282+github-actions[bot]@users.noreply.github.com'
 
+# 
 # YOU DON'T HAVE TO DEFINE ANYTHING HERE ;)
+# 
 jobs:
   commits-cutting:
     runs-on: ubuntu-latest
@@ -40,41 +49,10 @@ jobs:
         with:
           token: ${{ secrets.YOUR_TOKEN }}
           fetch-depth: '0'
-          ref: ${{ github.event.inputs.branch || env.BRANCH }}
+          ref: ${{ github.event.inputs.branch || env.NOMANUAL.BRANCH }}
       - uses: mytestdummy/testaction@master
         with:
-          new-first-commit: ${{ github.event.inputs.new-first-commit || env.NEW-FIRST-COMMIT }}
-          branch: ${{ github.event.inputs.branch || env.BRANCH }}
-          user-name: ${{ github.event.inputs.user-name || env.USER-NAME }}
-          user-email: ${{ github.event.inputs.user-email || env.USER-EMAIL }}
-
-  # manual-cutting:
-  #   if: ${{ github.event.inputs.new-first-commit }}
-  #   runs-on: ubuntu-latest
-  #   steps:
-  #     - uses: actions/checkout@v2
-  #       with:
-  #         token: ${{ secrets.YOUR_TOKEN }}
-  #         fetch-depth: '0'
-  #         ref: ${{ github.event.inputs.branch }}
-  #     - uses: mytestdummy/testaction@master
-  #       with:
-  #         new-first-commit: ${{ github.event.inputs.new-first-commit }}
-  #         branch: ${{ github.event.inputs.branch }}
-  #         user-name:
-  #         user-email:
-  # no-manual-cutting:
-  #   if: ${{ github.event.inputs.new-first-commit }} == false
-  #   runs-on: ubuntu-latest
-  #   steps:
-  #     - uses: actions/checkout@v2
-  #       with:
-  #         token: ${{ secrets.YOUR_TOKEN }}
-  #         fetch-depth: '0'
-  #         ref: ${{ env.BRANCH }}
-  #     - uses: mytestdummy/testaction@master
-  #       with:
-  #         new-first-commit: ${{ env.NEW-FIRST-COMMIT }}
-  #         branch: ${{ env.BRANCH }}
-  #         user-name: ${{ env.USER-NAME }}
-  #         user-email: ${{ env.USER-EMAIL }}
+          new-first-commit: ${{ github.event.inputs.new-first-commit || env.NOMANUAL.NEW-FIRST-COMMIT }}
+          branch: ${{ github.event.inputs.branch || env.NOMANUAL.BRANCH }}
+          user-name: ${{ github.event.inputs.user-name || env.NOMANUAL.USER-NAME }}
+          user-email: ${{ github.event.inputs.user-email || env.NOMANUAL.USER-EMAIL }}
