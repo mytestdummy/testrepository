@@ -4,10 +4,10 @@ name: Manually triggered workflow
 # DEFINE YOUR INPUTS FOR NO MANUAL DISPATCH WORKFLOWS HERE
 # 
 env:
-  NEW-FIRST-COMMIT-NOMANUAL: HEAD~17 # e.g. HEAD~20
-  BRANCH-NOMANUAL: test # e.g. master
-  USER-NAME-NOMANUAL: github-actions[bot]
-  USER-EMAIL-NOMANUAL: 41898282+github-actions[bot]@users.noreply.github.com
+  NOMANUAL_NEW-FIRST-COMMIT: HEAD~17 # e.g. HEAD~20
+  NOMANUAL_BRANCH: test # e.g. master
+  NOMANUAL_USER-NAME: github-actions[bot]
+  NOMANUAL_USER-EMAIL: 41898282+github-actions[bot]@users.noreply.github.com
   
 # 
 # DEFINE YOUR WORKFLOW TRIGGERS HERE
@@ -48,10 +48,10 @@ jobs:
         with:
           token: ${{ secrets.YOUR_TOKEN }}
           fetch-depth: '0'
-          ref: ${{ github.event.inputs.branch || env.BRANCH-NOMANUAL }}
+          ref: ${{ github.event.inputs.branch || env.NOMANUAL_BRANCH }}
       - uses: mytestdummy/testaction@master
         with:
-          new-first-commit: ${{ github.event.inputs.new-first-commit || env.NEW-FIRST-COMMIT-NOMANUAL }}
-          branch: ${{ github.event.inputs.branch || env.BRANCH-NOMANUAL }}
-          user-name: ${{ github.event.inputs.user-name || env.USER-NAME-NOMANUAL }}
-          user-email: ${{ github.event.inputs.user-email || env.USER-EMAIL-NOMANUAL }}
+          new-first-commit: ${{ github.event.inputs.new-first-commit || env.NOMANUAL_NEW-FIRST-COMMIT }}
+          branch: ${{ github.event.inputs.branch || env.NOMANUAL_BRANCH }}
+          user-name: ${{ github.event.inputs.user-name || env.NOMANUAL_USER-NAME }}
+          user-email: ${{ github.event.inputs.user-email || env.NOMANUAL_USER-EMAIL }}
