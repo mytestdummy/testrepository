@@ -4,7 +4,7 @@ name: Manually triggered workflow
 # DEFINE YOUR INPUTS FOR NO MANUAL DISPATCH WORKFLOWS HERE
 # 
 env:
-  NOMANUAL_NEW-FIRST-COMMIT: HEAD~17 # e.g. HEAD~20
+  NOMANUAL_NEW-FIRST-COMMIT: HEAD~18 # e.g. HEAD~20
   NOMANUAL_BRANCH: test # e.g. master
   NOMANUAL_USER-NAME: github-actions[bot]
   NOMANUAL_USER-EMAIL: 41898282+github-actions[bot]@users.noreply.github.com
