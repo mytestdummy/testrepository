@@ -71,7 +71,8 @@ jobs:
             USER_NAME='${{ env.USER-NAME }}';
             USER_EMAIL='${{ env.USER-EMAIL }}';
             # THAT'S IT; JUMP TO THE NEXT URL-GROUP
-            bash temp_lighthouse_badges_nested/lighthouse_badger_action.sh
+            source temp_lighthouse_badges_nested/lighthouse_badger_action.sh
+            lighthouse_badger_action
           } &
           #
           # SECOND URL-GROUP | DEFINE YOUR SETTINGS IN THE FOLLOWING
@@ -86,7 +87,8 @@ jobs:
             USER_NAME='${{ env.USER-NAME }}';
             USER_EMAIL='${{ env.USER-EMAIL }}';
             # THAT'S IT; JUMP TO THE NEXT URL-GROUP
-            bash temp_lighthouse_badges_nested/lighthouse_badger_action.sh
+            source temp_lighthouse_badges_nested/lighthouse_badger_action.sh
+            lighthouse_badger_action
           } &
           # 
           # THIRD URL-GROUP | FEEL FREE TO ADD MORE URL-GROUPS LIKE ABOVE
