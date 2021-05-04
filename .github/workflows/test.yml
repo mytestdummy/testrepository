@@ -1,0 +1,121 @@
+# Lighthouse-Badger-N-Groups | GitHub Action Workflow
+# 
+# Description: Generates, adds & updates manually/automatically Lighthouse badges & reports for different input URL-groups to the same target repository & branch
+# Author: Sitdisch
+# Source: https://github.com/myactionway/lighthouse-badger-workflows
+# License: MIT
+# Copyright (c) 2021 Sitdisch
+
+name: 'Lighthouse-Badger-N-Groups'
+
+########################################################################
+# DEFINE YOUR DEFAULTS (TOKEN, INPUTS & TRIGGERS) IN THE FOLLOWING
+########################################################################
+
+# TOKEN and INPUTS as environmental variables
+env:
+  # Token for all triggers (INSERT ONLY THE NAME NEVER THE REAL VALUE)
+  TOKEN: ${{ secrets.YOUR_TOKEN }} # insert ${{ secrets.<TOKEN_NAME> }} and replace <TOKEN_NAME>
+  # 
+  # To change predefined values, just override them
+  REPOSITORY: ${{ github.repository }} # target repository (predefined: repo with this file)
+  BRANCH: 'master' # target branch
+  RESULTS-TYPE: 'both' # 'mobile', 'desktop' or 'both'
+  MOBILE-LIGHTHOUSE-PARAMS: '--throttling.cpuSlowdownMultiplier=2' # Lighthouse parameters mobile audit
+  DESKTOP-LIGHTHOUSE-PARAMS: '--preset=desktop --throttling.cpuSlowdownMultiplier=1' # Lighthouse parameters desktop audit
+  USER-NAME: 'github-actions[bot]' # user who should commit
+  USER-EMAIL: '41898282+github-actions[bot]@users.noreply.github.com'
+  COMMIT-MESSAGE: 'Lighthouse-Badger[bot]: Results Added'
+
+# TRIGGERS
+on:
+  # page_build:
+  # schedule: # Check your schedule here => https://crontab.guru/
+  #   - cron: '55 23 * * 0' # e.g. every Sunday at 23:55
+  workflow_dispatch:
+    # No predefined inputs; The environmental variables defined in this file are used instead when this trigger is triggered.
+
+########################################################################
+# YOU CAN JUMP TO THE FIRST URL-GROUP DEFINITION BELOW
+########################################################################
+# CONSIDER: 
+#   - You can't change TOKEN, REPOSITORY & BRANCH for the different URL-groups 
+#   - this is possible with the lighthouse-badger-n-targets.yml here https://github.com/MyActionWay/lighthouse-badger-workflows/tree/master/.github/workflows
+
+# Jobs
+jobs:
+  lighthouse-badger-n-groups:
+    runs-on: ubuntu-20.04
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          repository: ${{ env.REPOSITORY }}
+          token: ${{ env.TOKEN }}
+          ref: ${{env.BRANCH }}
+      - uses: actions/checkout@v2
+        with:
+          repository: 'myactionway/lighthouse-badges'
+          path: temp_lighthouse_badges_nested
+      - name: Parallel Results Creation
+        run: |
+          #
+          # FIRST URL-GROUP | DEFINE YOUR SETTINGS IN THE FOLLOWING
+          #
+          {
+            URLS='https://github.com/sitdisch https://github.com/mythemeway';
+            BADGES_ARGS='-b pagespeed -o lighthouse_results/first_group -r';
+            COMMIT_MESSAGE='Lighthouse Results Added | First URL-group';
+            RESULTS_TYPE='${{ env.RESULTS-TYPE }}';
+            MOBILE_LIGHTHOUSE_PARAMS='${{ env.MOBILE-LIGHTHOUSE-PARAMS }}';
+            DESKTOP_LIGHTHOUSE_PARAMS='${{ env.DESKTOP-LIGHTHOUSE-PARAMS }}';
+            USER_NAME='${{ env.USER-NAME }}';
+            USER_EMAIL='${{ env.USER-EMAIL }}';
+            gh wo run lighthouse-badger-default.yml -f urls=$URLS -f repository=${{ env.REPOSITORY }}
+          } &
+          #
+          # SECOND URL-GROUP | DEFINE YOUR SETTINGS IN THE FOLLOWING
+          #
+          #{
+          #  URLS='https://mythemeway.github.io/Dark-Particle/ https://mythemeway.github.io/Dark-Particle/projects/2020/10/31/project-1.html';
+          #  BADGES_ARGS='-b flat -o lighthouse_results/second_group -r';
+          #  COMMIT_MESSAGE='Lighthouse Results Added | Second URL-group';
+          #  RESULTS_TYPE='${{ env.RESULTS-TYPE }}';
+          #  MOBILE_LIGHTHOUSE_PARAMS='${{ env.MOBILE-LIGHTHOUSE-PARAMS }}';
+          #  DESKTOP_LIGHTHOUSE_PARAMS='${{ env.DESKTOP-LIGHTHOUSE-PARAMS }}';
+          #  USER_NAME='${{ env.USER-NAME }}';
+          #  USER_EMAIL='${{ env.USER-EMAIL }}';
+          #  # 
+          #  # YOU DON'T HAVE TO DEFINE ANYTHING HERE (JUMP TO THE NEXT URL-GROUP)
+          #  # 
+          #  RESULTS_PATH=`expr "$BADGES_ARGS" : ".* --\?ou\?t\?p\?u\?t\?-\?p\?a\?t\?h\? \([^ ]*\).*"`;
+          #  BADGES_ARGS=$(sed -e "s/ \(\(--output-path\)\|\(-o\)\) \S*//g" <<< "$BADGES_ARGS");
+          #  mkdir -p $RESULTS_PATH
+          #  cd temp_lighthouse_badges_nested
+          #  if [ $RESULTS_TYPE = "both" ]; then
+          #    { export LIGHTHOUSE_BADGES_PARAMS="$MOBILE_LIGHTHOUSE_PARAMS"; ./src/index.js -u $URLS $BADGES_ARGS -o $RESULTS_PATH/mobile; cp -r $RESULTS_PATH/mobile ../$RESULTS_PATH; } & 
+          #    { export LIGHTHOUSE_BADGES_PARAMS="$DESKTOP_LIGHTHOUSE_PARAMS"; ./src/index.js -u $URLS $BADGES_ARGS -o $RESULTS_PATH/desktop; cp -r $RESULTS_PATH/desktop ../$RESULTS_PATH; } &
+          #    wait
+          #  else
+          #    if [ $RESULTS_TYPE = "mobile" ]; then
+          #      export LIGHTHOUSE_BADGES_PARAMS="$MOBILE_LIGHTHOUSE_PARAMS"
+          #    else
+          #      export LIGHTHOUSE_BADGES_PARAMS="$DESKTOP_LIGHTHOUSE_PARAMS"
+          #    fi
+          #    ./src/index.js -u $URLS $BADGES_ARGS -o $RESULTS_PATH/$RESULTS_TYPE
+          #    cp -r $RESULTS_PATH/$RESULTS_TYPE ../$RESULTS_PATH
+          #  fi
+          #  cd ..
+          #  git config --local user.email $USER_EMAIL
+          #  git config --local user.name $USER_NAME
+          #  git pull
+          #  git add $RESULTS_PATH
+          #  git commit -am "$COMMIT_MESSAGE"
+          #  git push
+          #} &
+          # 
+          # THIRD URL-GROUP | FEEL FREE TO ADD MORE URL-GROUPS LIKE ABOVE
+          # 
+          # ...
+          # 
+          # THE FOLLOWING MUST BE AT THE END OF THIS FILE
+          wait

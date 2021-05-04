@@ -1,0 +1,214 @@
+# Lighthouse-Badger-N-Targets | GitHub Action Workflow
+# 
+# Description: Generates, adds & updates manually/automatically Lighthouse badges & reports for different input URL-groups to different target repositories & branches
+# Author: Sitdisch
+# Source: https://github.com/myactionway/lighthouse-badger-workflows
+# License: MIT
+# Copyright (c) 2021 Sitdisch
+
+name: 'Lighthouse-Badger-N-Targets'
+
+########################################################################
+# DEFINE YOUR DEFAULTS (TOKEN, INPUTS & TRIGGERS) IN THE FOLLOWING
+########################################################################
+
+# TOKEN and INPUTS as environmental variables
+env:
+  # You can override the following env in the settings for the different targets
+  # Token for all triggers (INSERT ONLY THE NAME NEVER THE REAL VALUE)
+  TOKEN: ${{ secrets.YOUR_TOKEN }} # insert ${{ secrets.<TOKEN_NAME> }} and replace <TOKEN_NAME>
+  #
+  # To change predefined values, just override them
+  REPOSITORY: ${{ github.repository }} # target repository (predefined: repo with this file)
+  BRANCH: 'master' # target branch
+  #
+  # You can override the following env in the settings for the different targets & URL-groups
+  RESULTS-TYPE: 'both' # 'mobile', 'desktop' or 'both'
+  MOBILE-LIGHTHOUSE-PARAMS: '--throttling.cpuSlowdownMultiplier=2' # Lighthouse parameters mobile audit
+  DESKTOP-LIGHTHOUSE-PARAMS: '--preset=desktop --throttling.cpuSlowdownMultiplier=1' # Lighthouse parameters desktop audit
+  USER-NAME: 'github-actions[bot]' # user who should commit
+  USER-EMAIL: '41898282+github-actions[bot]@users.noreply.github.com'
+  COMMIT-MESSAGE: 'Lighthouse-Badger[bot]: Results Added'
+
+# TRIGGERS
+on:
+  # page_build:
+  # schedule: # Check your schedule here => https://crontab.guru/
+  #   - cron: '55 23 * * 0' # e.g. every Sunday at 23:55
+  workflow_dispatch:
+    # No predefined inputs; The environmental variables defined in this file are used instead when this trigger is triggered.
+
+########################################################################
+# DEFINE YOUR SETTINGS FOR THE DIFFERENT TARGETS & URL-GROUPS BELOW
+########################################################################
+
+# Jobs
+jobs:
+  lighthouse-badger-n-targets:
+    runs-on: ubuntu-20.04
+    strategy:
+      matrix:
+        include:
+          #
+          # FIRST TARGET | DEFINE YOUR SETTINGS IN THE FOLLOWING
+          #
+          # - TOKEN:
+          # - REPOSITORY:
+          # - BRANCH:
+          # - RESULTS-TYPE:
+          # - MOBILE-LIGHTHOUSE-PARAMS:
+          # - DESKTOP-LIGHTHOUSE-PARAMS:
+          # - USER-NAME:
+          # - USER-EMAIL:
+
+
+  #
+  # RESIDUUM
+  #
+  lighthouse-badger-1-target:
+    # Your defaults will be used unless you redefine the following env
+    # env:
+    steps:
+      # YOU DON'T HAVE TO DEFINE ANYTHING HERE
+      - uses: actions/checkout@v2
+        with:
+          repository: ${{ env.REPOSITORY }}
+          token: ${{ env.TOKEN }}
+          ref: ${{env.BRANCH }}
+      # YOU DON'T HAVE TO DEFINE ANYTHING HERE
+      - uses: actions/checkout@v2
+        with:
+          repository: 'myactionway/lighthouse-badges'
+          path: temp_lighthouse_badges_nested
+      ###################################################################
+      # FIRST URL-GROUP | DEFINE YOUR SETTINGS IN THE FOLLOWING
+      ###################################################################
+      - name: 'First URL-Group | First Target'
+        env:
+          URLS: 'https://github.com/sitdisch https://github.com/mythemeway' # URL(s) to be checked in the first group e.g. 'https://github.com/sitdisch https://github.com/mythemeway'
+          BADGES-ARGS: '-b pagespeed -o lighthouse_results/first_group -r' # badge-style '-b {flat,...}', preceding-label '-l "Lighthouse "', output-path '-o lighthouse_results/first_group', save-report '-r', single-badge '-s'
+          COMMIT-MESSAGE: 'Lighthouse Results Added | First URL-group | First Target'
+          # Your defaults will be used unless you redefine the following env
+          # RESULTS-TYPE:
+          # MOBILE-LIGHTHOUSE-PARAMS:
+          # DESKTOP-LIGHTHOUSE-PARAMS:
+          # USER-NAME:
+          # USER-EMAIL:
+        # YOU DON'T HAVE TO DEFINE ANYTHING HERE
+        uses: mytestdummy/testaction@master
+        with:
+          urls: ${{ env.URLS }}
+          badges-args: ${{ env.BADGES-ARGS }}
+          results-type: ${{ env.RESULTS-TYPE }}
+          mobile-lighthouse-params: ${{ env.MOBILE-LIGHTHOUSE-PARAMS }}
+          desktop-lighthouse-params: ${{ env.DESKTOP-LIGHTHOUSE-PARAMS }}
+          user-name: ${{ env.USER-NAME }}
+          user-email: ${{ env.USER-EMAIL }}
+          commit-message: ${{ env.COMMIT-MESSAGE }}
+      ###################################################################
+      # SECOND URL-GROUP | DEFINE YOUR SETTINGS IN THE FOLLOWING
+      ###################################################################
+      - name: 'Second URL-Group | First Target'
+        env:
+          URLS: 'https://mythemeway.github.io/Dark-Particle/ https://mythemeway.github.io/Dark-Particle/projects/2020/10/31/project-1.html' # URL(s) to be checked in the second group
+          BADGES-ARGS: '-b flat -o lighthouse_results/second_group -s'
+          COMMIT-MESSAGE: 'Lighthouse Results Added | Second URL-group | First Target'
+          # Your defaults will be used unless you redefine the following env
+          # RESULTS-TYPE:
+          # MOBILE-LIGHTHOUSE-PARAMS:
+          # DESKTOP-LIGHTHOUSE-PARAMS:
+          # USER-NAME:
+          # USER-EMAIL:
+        # YOU DON'T HAVE TO DEFINE ANYTHING HERE
+        uses: mytestdummy/testaction@master
+        with:
+          urls: ${{ env.URLS }}
+          badges-args: ${{ env.BADGES-ARGS }}
+          results-type: ${{ env.RESULTS-TYPE }}
+          mobile-lighthouse-params: ${{ env.MOBILE-LIGHTHOUSE-PARAMS }}
+          desktop-lighthouse-params: ${{ env.DESKTOP-LIGHTHOUSE-PARAMS }}
+          user-name: ${{ env.USER-NAME }}
+          user-email: ${{ env.USER-EMAIL }}
+          commit-message: ${{ env.COMMIT-MESSAGE }}
+      # FEEL FREE TO ADD MORE URL-GROUPS LIKE ABOVE
+  ###################################################################
+  # SECOND TARGET | DEFINE YOUR SETTINGS IN THE FOLLOWING
+  ###################################################################
+  lighthouse-badger-2-target:
+    runs-on: ubuntu-20.04
+    # Your defaults will be used unless you redefine the following env
+    env:
+      # TOKEN:
+      # REPOSITORY:
+      BRANCH: 'test'
+      # RESULTS-TYPE:
+      # MOBILE-LIGHTHOUSE-PARAMS:
+      # DESKTOP-LIGHTHOUSE-PARAMS:
+      # USER-NAME:
+      # USER-EMAIL:
+    steps:
+      # YOU DON'T HAVE TO DEFINE ANYTHING HERE
+      - uses: actions/checkout@v2
+        with:
+          repository: ${{ env.REPOSITORY }}
+          token: ${{ env.TOKEN }}
+          ref: ${{env.BRANCH }}
+      # YOU DON'T HAVE TO DEFINE ANYTHING HERE
+      - uses: actions/checkout@v2
+        with:
+          repository: 'myactionway/lighthouse-badges'
+          path: temp_lighthouse_badges_nested
+      ###################################################################
+      # FIRST URL-GROUP | DEFINE YOUR SETTINGS IN THE FOLLOWING
+      ###################################################################
+      - name: 'First URL-Group | Second Target'
+        env:
+          URLS: 'https://mythemeway.github.io/Dark-Particle/'
+          BADGES-ARGS: '-b pagespeed -o lighthouse_results/first_group -r'
+          # Your defaults will be used unless you redefine the following env
+          RESULTS-TYPE: 'desktop'
+          # MOBILE-LIGHTHOUSE-PARAMS:
+          # DESKTOP-LIGHTHOUSE-PARAMS:
+          # USER-NAME:
+          # USER-EMAIL:
+          COMMIT-MESSAGE: 'Lighthouse Results Added | Second URL-group | Second Target'
+        # YOU DON'T HAVE TO DEFINE ANYTHING HERE
+        uses: mytestdummy/testaction@master
+        with:
+          urls: ${{ env.URLS }}
+          badges-args: ${{ env.BADGES-ARGS }}
+          results-type: ${{ env.RESULTS-TYPE }}
+          mobile-lighthouse-params: ${{ env.MOBILE-LIGHTHOUSE-PARAMS }}
+          desktop-lighthouse-params: ${{ env.DESKTOP-LIGHTHOUSE-PARAMS }}
+          user-name: ${{ env.USER-NAME }}
+          user-email: ${{ env.USER-EMAIL }}
+          commit-message: ${{ env.COMMIT-MESSAGE }}
+      ###################################################################
+      # SECOND URL-GROUP | DEFINE YOUR SETTINGS IN THE FOLLOWING
+      ###################################################################
+      - name: 'Second URL-Group | Second Target'
+        env:
+          URLS: 'https://mythemeway.github.io/Light-Particle/'
+          BADGES-ARGS: '-b flat -o lighthouse_results/second_group -s -r'
+          # Your defaults will be used unless you redefine the following env
+          # RESULTS-TYPE:
+          # MOBILE-LIGHTHOUSE-PARAMS:
+          # DESKTOP-LIGHTHOUSE-PARAMS:
+          # USER-NAME:
+          # USER-EMAIL:
+          COMMIT-MESSAGE: 'Lighthouse Results Added | Second URL-group | Second Target'
+        # YOU DON'T HAVE TO DEFINE ANYTHING HERE
+        uses: mytestdummy/testaction@master
+        with:
+          urls: ${{ env.URLS }}
+          badges-args: ${{ env.BADGES-ARGS }}
+          results-type: ${{ env.RESULTS-TYPE }}
+          mobile-lighthouse-params: ${{ env.MOBILE-LIGHTHOUSE-PARAMS }}
+          desktop-lighthouse-params: ${{ env.DESKTOP-LIGHTHOUSE-PARAMS }}
+          user-name: ${{ env.USER-NAME }}
+          user-email: ${{ env.USER-EMAIL }}
+          commit-message: ${{ env.COMMIT-MESSAGE }}
+      # FEEL FREE TO ADD MORE URL-GROUPS LIKE ABOVE
+  ###################################################################
+  # THIRD TARGET | FEEL FREE TO ADD MORE TARGETS LIKE ABOVE
+  ###################################################################

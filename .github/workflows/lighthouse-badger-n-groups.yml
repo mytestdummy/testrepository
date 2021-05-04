@@ -40,7 +40,7 @@ on:
 ########################################################################
 # CONSIDER: 
 #   - You can't change TOKEN, REPOSITORY & BRANCH for the different URL-groups 
-#   - this is possible with the lighthouse-badger-n-targets.yml source: https://github.com/MyActionWay/lighthouse-badger-workflows/tree/master/.github/workflows
+#   - this is possible with the lighthouse-badger-n-targets.yml here https://github.com/MyActionWay/lighthouse-badger-workflows/tree/master/.github/workflows
 
 # Jobs
 jobs:
