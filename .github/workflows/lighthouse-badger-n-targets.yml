@@ -147,7 +147,7 @@ jobs:
             URLS='https://mythemeway.github.io/Dark-Particle/';
             BADGES_ARGS='-b pagespeed -o lighthouse_results/first_group -r';
             COMMIT_MESSAGE='Lighthouse Results Added | First URL-group | SECOND Target';
-            RESULTS_TYPE='desktop';
+            RESULTS_TYPE='${{ env.RESULTS-TYPE }}';
             MOBILE_LIGHTHOUSE_PARAMS='${{ env.MOBILE-LIGHTHOUSE-PARAMS }}';
             DESKTOP_LIGHTHOUSE_PARAMS='${{ env.DESKTOP-LIGHTHOUSE-PARAMS }}';
             USER_NAME='${{ env.USER-NAME }}';
