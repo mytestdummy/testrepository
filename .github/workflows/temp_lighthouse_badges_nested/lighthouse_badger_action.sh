@@ -1,3 +1,11 @@
+# Lighthouse-Badger | GitHub Action
+# 
+# Description: Generates, adds & updates manually/automatically Lighthouse badges & reports from one/multiple input URL(s) to a selected target repository
+# Author: Sitdisch
+# Source: https://github.com/myactionway/lighthouse-badges
+# License: MIT
+# Copyright (c) 2021 Sitdisch
+
 lighthouse_badger_action() {
 	RESULTS_PATH=`expr "$BADGES_ARGS" : ".* --\?ou\?t\?p\?u\?t\?-\?p\?a\?t\?h\? \([^ ]*\).*"`;
 	BADGES_ARGS=$(sed -e "s/ \(\(--output-path\)\|\(-o\)\) \S*//g" <<< "$BADGES_ARGS");

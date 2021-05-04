@@ -58,6 +58,7 @@ jobs:
           path: temp_lighthouse_badges_nested
       - name: Parallel Results Creation
         run: |
+          source temp_lighthouse_badges_nested/lighthouse_badger_action.sh
           #
           # FIRST URL-GROUP | DEFINE YOUR SETTINGS IN THE FOLLOWING
           #
@@ -71,7 +72,6 @@ jobs:
             USER_NAME='${{ env.USER-NAME }}';
             USER_EMAIL='${{ env.USER-EMAIL }}';
             # THAT'S IT; JUMP TO THE NEXT URL-GROUP
-            source temp_lighthouse_badges_nested/lighthouse_badger_action.sh
             lighthouse_badger_action
           } &
           #
@@ -87,7 +87,6 @@ jobs:
             USER_NAME='${{ env.USER-NAME }}';
             USER_EMAIL='${{ env.USER-EMAIL }}';
             # THAT'S IT; JUMP TO THE NEXT URL-GROUP
-            source temp_lighthouse_badges_nested/lighthouse_badger_action.sh
             lighthouse_badger_action
           } &
           # 

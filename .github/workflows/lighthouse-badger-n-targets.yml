@@ -44,11 +44,11 @@ on:
 
 # Jobs
 jobs:
-  lighthouse-badger-n-targets:
-    runs-on: ubuntu-20.04
-    strategy:
-      matrix:
-        include:
+  # lighthouse-badger-n-targets:
+  #   runs-on: ubuntu-20.04
+  #   strategy:
+  #     matrix:
+  #       include:
           #
           # FIRST TARGET | DEFINE YOUR SETTINGS IN THE FOLLOWING
           #
