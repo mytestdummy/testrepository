@@ -12,8 +12,8 @@ lighthouse_badger_action() {
 	mkdir -p $RESULTS_PATH
 	cd temp_lighthouse_badges_nested
 	if [ $RESULTS_TYPE = "both" ]; then
-		{ export LIGHTHOUSE_BADGES_PARAMS="$MOBILE_LIGHTHOUSE_PARAMS"; ./src/index.js -u $URLS $BADGES_ARGS -o $RESULTS_PATH/mobile; cp -r $RESULTS_PATH/mobile ../$RESULTS_PATH; } & 
-		{ export LIGHTHOUSE_BADGES_PARAMS="$DESKTOP_LIGHTHOUSE_PARAMS"; ./src/index.js -u $URLS $BADGES_ARGS -o $RESULTS_PATH/desktop; cp -r $RESULTS_PATH/desktop ../$RESULTS_PATH; } &
+		{ export LIGHTHOUSE_BADGES_PARAMS="$MOBILE_LIGHTHOUSE_PARAMS"; ./src/index.js -u $URLS $BADGES_ARGS -o $RESULTS_PATH/mobile; cp -r $RESULTS_PATH/mobile ../$RESULTS_PATH; rm -R $RESULTS_PATH/mobile; } & 
+		{ export LIGHTHOUSE_BADGES_PARAMS="$DESKTOP_LIGHTHOUSE_PARAMS"; ./src/index.js -u $URLS $BADGES_ARGS -o $RESULTS_PATH/desktop; cp -r $RESULTS_PATH/desktop ../$RESULTS_PATH; rm -R $RESULTS_PATH/desktop; } &
 		wait
 	else
 		if [ $RESULTS_TYPE = "mobile" ]; then
@@ -23,6 +23,7 @@ lighthouse_badger_action() {
 		fi
 		./src/index.js -u $URLS $BADGES_ARGS -o $RESULTS_PATH/$RESULTS_TYPE
 		cp -r $RESULTS_PATH/$RESULTS_TYPE ../$RESULTS_PATH
+		rm -R $RESULTS_PATH/$RESULTS_TYPE
 	fi
 	cd ..
 	git config --local user.email $USER_EMAIL
