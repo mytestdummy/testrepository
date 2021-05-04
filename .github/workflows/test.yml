@@ -70,8 +70,8 @@ jobs:
             DESKTOP_LIGHTHOUSE_PARAMS='${{ env.DESKTOP-LIGHTHOUSE-PARAMS }}';
             USER_NAME='${{ env.USER-NAME }}';
             USER_EMAIL='${{ env.USER-EMAIL }}';
-            gh auth login --with-token < '${{ env.TOKEN }}'
-            # gh actions --help
+            gh auth login --with-token '${{ env.TOKEN }}'
+            gh actions --help
             # gh workflow run lighthouse-badger-default.yml -f urls=$URLS -f repository=${{ env.REPOSITORY }}
           } &
           #
