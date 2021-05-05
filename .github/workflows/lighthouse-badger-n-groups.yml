@@ -38,7 +38,7 @@ on:
 ########################################################################
 # YOU CAN JUMP TO THE FIRST URL-GROUP DEFINITION BELOW
 ########################################################################
-# CONSIDER: 
+# CONSIDER:
 #   - You can't change TOKEN, REPOSITORY, BRANCH, USER-NAME, USER-EMAIL and COMMIT-MESSAGE for the different URL-groups 
 #   - this is possible with the lighthouse-badger-n-targets.yml; get it here https://github.com/MyActionWay/lighthouse-badger-workflows/tree/master/.github/workflows
 
