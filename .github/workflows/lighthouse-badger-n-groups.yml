@@ -65,12 +65,9 @@ jobs:
           {
             URLS='https://mythemeway.github.io/Dark-Particle/';
             BADGES_ARGS='-b pagespeed -o lighthouse_results/first_group -r';
-            COMMIT_MESSAGE='Lighthouse Results Added | First URL-group';
             RESULTS_TYPE='${{ env.RESULTS-TYPE }}';
             MOBILE_LIGHTHOUSE_PARAMS='${{ env.MOBILE-LIGHTHOUSE-PARAMS }}';
             DESKTOP_LIGHTHOUSE_PARAMS='${{ env.DESKTOP-LIGHTHOUSE-PARAMS }}';
-            USER_NAME='${{ env.USER-NAME }}';
-            USER_EMAIL='${{ env.USER-EMAIL }}';
             # THAT'S IT; JUMP TO THE NEXT URL-GROUP
             lighthouse_badger_action
           } &
@@ -80,12 +77,9 @@ jobs:
           {
             URLS='https://mythemeway.github.io/Dark-Particle/ https://mythemeway.github.io/Dark-Particle/projects/2020/10/31/project-1.html';
             BADGES_ARGS='-b flat -o lighthouse_results/second_group -s -r';
-            COMMIT_MESSAGE='Lighthouse Results Added | Second URL-group';
             RESULTS_TYPE='${{ env.RESULTS-TYPE }}';
             MOBILE_LIGHTHOUSE_PARAMS='${{ env.MOBILE-LIGHTHOUSE-PARAMS }}';
             DESKTOP_LIGHTHOUSE_PARAMS='${{ env.DESKTOP-LIGHTHOUSE-PARAMS }}';
-            USER_NAME='${{ env.USER-NAME }}';
-            USER_EMAIL='${{ env.USER-EMAIL }}';
             # THAT'S IT; JUMP TO THE NEXT URL-GROUP
             lighthouse_badger_action
           } &
@@ -94,5 +88,11 @@ jobs:
           # 
           # ...
           # 
-          # THE FOLLOWING LINE MUST BE AT THE END OF THIS RUN
+          # THE END | YOU DON'T HAVE TO DEFINE ANYTHING HERE 
           wait
+          git config --local user.email ${{ env.USER-EMAIL }}
+          git config --local user.name ${{ env.USER-NAME }}
+          git pull
+          git add .
+          git commit -am "${{ env.COMMIT-MESSAGE }}"
+          git push
