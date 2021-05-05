@@ -77,7 +77,7 @@ jobs:
           {
             URLS='https://mythemeway.github.io/Dark-Particle/ https://mythemeway.github.io/Dark-Particle/projects/2020/10/31/project-1.html';
             BADGES_ARGS='-b flat -o lighthouse_results/second_group -r';
-            RESULTS_TYPE='desktop';
+            RESULTS_TYPE='${{ env.RESULTS-TYPE }}';
             MOBILE_LIGHTHOUSE_PARAMS='${{ env.MOBILE-LIGHTHOUSE-PARAMS }}';
             DESKTOP_LIGHTHOUSE_PARAMS='${{ env.DESKTOP-LIGHTHOUSE-PARAMS }}';
             # THAT'S IT; JUMP TO THE NEXT URL-GROUP
