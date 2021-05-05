@@ -13,9 +13,9 @@ env:
 # DEFINE YOUR WORKFLOW TRIGGERS HERE
 # 
 on:
-  push:
-  schedule:
-    - cron: '30 23 * * *' # e.g. every 28th day of a month at 23:00
+  # push:
+  # schedule:
+  #   - cron: '30 23 * * *' # e.g. every 28th day of a month at 23:00
   # 
   # YOU DON'T HAVE TO DEFINE ANYTHING FOR THE WORKFLOW_DISPATCH HERE
   # 
