@@ -159,7 +159,7 @@ jobs:
           {
             URLS='https://mythemeway.github.io/Light-Particle/ https://mythemeway.github.io/Light-Particle/projects/2020/10/31/project-1.html';
             BADGES_ARGS='-b flat -o lighthouse_results/second_group -s -r';
-            RESULTS_TYPE='${{ env.RESULTS-TYPE }}';
+            RESULTS_TYPE='desktop';
             MOBILE_LIGHTHOUSE_PARAMS='${{ env.MOBILE-LIGHTHOUSE-PARAMS }}';
             DESKTOP_LIGHTHOUSE_PARAMS='${{ env.DESKTOP-LIGHTHOUSE-PARAMS }}';
             # THAT'S IT; JUMP TO THE NEXT URL-GROUP
