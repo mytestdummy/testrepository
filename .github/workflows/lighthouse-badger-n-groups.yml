@@ -56,16 +56,16 @@ jobs:
         with:
           repository: 'myactionway/lighthouse-badges'
           path: temp_lighthouse_badges_nested
-      - name: Parallel Computation | Second Target
+      - name: Parallel Computation
         run: |
           source temp_lighthouse_badges_nested/lighthouse_badger_action.sh
           #
-          # FIRST URL-GROUP | SECOND TARGET | DEFINE YOUR ENV BELOW
+          # FIRST URL-GROUP | DEFINE YOUR ENV IN THE FOLLOWING
           #
           {
             URLS='https://mythemeway.github.io/Dark-Particle/';
             BADGES_ARGS='-b pagespeed -o lighthouse_results/first_group -r';
-            COMMIT_MESSAGE='Lighthouse Results Added | First URL-group | SECOND Target';
+            COMMIT_MESSAGE='Lighthouse Results Added | First URL-group';
             RESULTS_TYPE='${{ env.RESULTS-TYPE }}';
             MOBILE_LIGHTHOUSE_PARAMS='${{ env.MOBILE-LIGHTHOUSE-PARAMS }}';
             DESKTOP_LIGHTHOUSE_PARAMS='${{ env.DESKTOP-LIGHTHOUSE-PARAMS }}';
@@ -75,12 +75,12 @@ jobs:
             lighthouse_badger_action
           } &
           #
-          # SECOND URL-GROUP | SECOND TARGET | DEFINE YOUR ENV BELOW
+          # SECOND URL-GROUP | DEFINE YOUR ENV IN THE FOLLOWING
           #
           {
             URLS='https://mythemeway.github.io/Dark-Particle/ https://mythemeway.github.io/Dark-Particle/projects/2020/10/31/project-1.html';
             BADGES_ARGS='-b flat -o lighthouse_results/second_group -s -r';
-            COMMIT_MESSAGE='Lighthouse Results Added | Second URL-group | SECOND Target';
+            COMMIT_MESSAGE='Lighthouse Results Added | Second URL-group';
             RESULTS_TYPE='${{ env.RESULTS-TYPE }}';
             MOBILE_LIGHTHOUSE_PARAMS='${{ env.MOBILE-LIGHTHOUSE-PARAMS }}';
             DESKTOP_LIGHTHOUSE_PARAMS='${{ env.DESKTOP-LIGHTHOUSE-PARAMS }}';
@@ -90,10 +90,9 @@ jobs:
             lighthouse_badger_action
           } &
           # 
-          # THIRD URL-GROUP | SECOND TARGET | DEFINE YOUR ENV BELOW
+          # THIRD URL-GROUP | FEEL FREE TO ADD MORE URL-GROUPS LIKE ABOVE
           # 
           # ...
           # 
-          # THAT'S IT; JUMP TO THE NEXT TARGET
           # THE FOLLOWING LINE MUST BE AT THE END OF THIS RUN
           wait
