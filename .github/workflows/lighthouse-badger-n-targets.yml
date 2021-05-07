@@ -157,7 +157,7 @@ jobs:
           # 
           {
             URLS='https://github.com/myactionway';
-            BADGES_ARGS='-b flat -o lighthouse_results/first_group -s -r';
+            BADGES_ARGS='-b flat -o lighthouse_results/second_group -s -r';
             RESULTS_TYPE='${{ env.RESULTS-TYPE }}';
             MOBILE_LIGHTHOUSE_PARAMS='${{ env.MOBILE-LIGHTHOUSE-PARAMS }}';
             DESKTOP_LIGHTHOUSE_PARAMS='${{ env.DESKTOP-LIGHTHOUSE-PARAMS }}';
