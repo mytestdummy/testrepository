@@ -155,6 +155,15 @@ jobs:
           #
           # SECOND URL-GROUP | SECOND TARGET | DEFINE YOUR ENV BELOW
           # 
+          {
+            URLS='https://github.com/myactionway';
+            BADGES_ARGS='-b flat -o lighthouse_results/first_group -s -r';
+            RESULTS_TYPE='${{ env.RESULTS-TYPE }}';
+            MOBILE_LIGHTHOUSE_PARAMS='${{ env.MOBILE-LIGHTHOUSE-PARAMS }}';
+            DESKTOP_LIGHTHOUSE_PARAMS='${{ env.DESKTOP-LIGHTHOUSE-PARAMS }}';
+            # THAT'S IT; JUMP TO THE NEXT URL-GROUP
+            lighthouse_badger_action
+          } &
           # ...
           # 
           # THAT'S IT; JUMP TO THE NEXT TARGET
