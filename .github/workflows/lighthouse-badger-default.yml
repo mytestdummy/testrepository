@@ -22,7 +22,7 @@ env:
   REPOSITORY: # target repository e.g. 'dummy/mytargetrepo'
   BRANCH: # target branch e.g. 'master'
   BADGES-ARGS: # badge-style '-b {flat,...}', preceding-label '-l "Lighthouse "', output-path '-o lighthouse_results/dummy', save-report '-r', single-badge '-s'
-  RESULTS-TYPE: 's' # 'mobile', 'desktop' or 'both'
+  RESULTS_TYPE: 's' # 'mobile', 'desktop' or 'both'
   MOBILE-LIGHTHOUSE-PARAMS: # Lighthouse parameters mobile audit
   DESKTOP-LIGHTHOUSE-PARAMS: # Lighthouse parameters desktop audit
   USER-NAME: # user who should commit e.g. 'dummy'
@@ -96,7 +96,7 @@ on:
 jobs:
   lighthouse-badger-default:
     runs-on: ubuntu-20.04
-    if: ${{ env.RESULTS-TYPE }}
+    if: ${{ env.RESULTS_TYPE }}
     # if: ${{ github.event.inputs.results-type == 'both' }} || ${{ !github.event.inputs.results-type && env.RESULTS-TYPE  == 'both' }}
     # env:
     #   test: ${{ github.event.inputs.results-type || env.RESULTS-TYPE || env.DEFAULT-RESULTS-TYPE }}
