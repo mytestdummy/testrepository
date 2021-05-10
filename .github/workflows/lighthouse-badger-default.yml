@@ -98,10 +98,8 @@ jobs:
     runs-on: ubuntu-20.04
     strategy:
       matrix:
-        include:
-          if: ${{ github.event.inputs.results-type || env.RESULTS-TYPE || env.DEFAULT-RESULTS-TYPE }}
-          env:
-            test: "yes"
+        test: [mobile, desktop]
+          # if: ${{ github.event.inputs.results-type || env.RESULTS-TYPE || env.DEFAULT-RESULTS-TYPE }}
     # if: ${{ github.event.inputs.results-type == 'both' }} || ${{ !github.event.inputs.results-type && env.RESULTS-TYPE  == 'both' }}
     # env:
     #   test: ${{ github.event.inputs.results-type || env.RESULTS-TYPE || env.DEFAULT-RESULTS-TYPE }}
@@ -120,7 +118,7 @@ jobs:
         with:
           urls: ${{ github.event.inputs.urls || env.URLS }}
           badges-args: ${{ github.event.inputs.badges-args || env.BADGES-ARGS || env.DEFAULT-BADGES-ARGS }}
-          results-type: ${{ github.event.inputs.results-type || env.RESULTS-TYPE || env.DEFAULT-RESULTS-TYPE }}
+          results-type: ${{ matrix.test }}
           mobile-lighthouse-params: ${{ github.event.inputs.mobile-lighthouse-params || env.MOBILE-LIGHTHOUSE-PARAMS || env.DEFAULT-MOBILE-LIGHTHOUSE-PARAMS }}
           desktop-lighthouse-params: ${{ github.event.inputs.desktop-lighthouse-params || env.DESKTOP-LIGHTHOUSE-PARAMS || env.DEFAULT-DESKTOP-LIGHTHOUSE-PARAMS }}
           user-name: ${{ github.event.inputs.user-name || env.USER-NAME || env.DEFAULT-USER-NAME }}
