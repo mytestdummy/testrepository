@@ -96,9 +96,10 @@ on:
 jobs:
   lighthouse-badger-default:
     runs-on: ubuntu-20.04
-    env:
-      test: ${{ github.event.inputs.results-type || env.RESULTS-TYPE || env.DEFAULT-RESULTS-TYPE }}
-    if: ${{ env.test }} == 'both'
+    if: ${{ github.event.inputs.results-type }} == 'both'
+    # env:
+    #   test: ${{ github.event.inputs.results-type || env.RESULTS-TYPE || env.DEFAULT-RESULTS-TYPE }}
+    # if: ${{ env.test }} == 'both'
     steps:
       - uses: actions/checkout@v2
         with:
