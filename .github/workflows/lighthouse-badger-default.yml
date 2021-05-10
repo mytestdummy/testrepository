@@ -22,7 +22,7 @@ env:
   REPOSITORY: # target repository e.g. 'dummy/mytargetrepo'
   BRANCH: # target branch e.g. 'master'
   BADGES-ARGS: # badge-style '-b {flat,...}', preceding-label '-l "Lighthouse "', output-path '-o lighthouse_results/dummy', save-report '-r', single-badge '-s'
-  RESULTS-TYPE: # 'mobile', 'desktop' or 'both'
+  RESULTS-TYPE: '' # 'mobile', 'desktop' or 'both'
   MOBILE-LIGHTHOUSE-PARAMS: # Lighthouse parameters mobile audit
   DESKTOP-LIGHTHOUSE-PARAMS: # Lighthouse parameters desktop audit
   USER-NAME: # user who should commit e.g. 'dummy'
