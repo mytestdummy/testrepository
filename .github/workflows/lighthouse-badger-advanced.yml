@@ -48,7 +48,7 @@ jobs:
     ####################################################################
     env:
       URLS: 'https://github.com/sitdisch https://github.com/mythemeway'
-      BADGES_ARGS: '-b pagespeed -o lighthouse_results/first_group -r'
+      BADGES-ARGS: '-b pagespeed -o lighthouse_results/first_group -r'
       COMMIT-MESSAGE: 'Lighthouse-Badger[bot]: Results Added | First URL-Group'
       # Your defaults will be used unless you redefine the following env
       # TOKEN:
