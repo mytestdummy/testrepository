@@ -15,7 +15,7 @@ name: 'Lighthouse-Badger-Advanced'
 # TOKEN and INPUTS as environmental variables (env)
 env:
   # Token for all triggers (INSERT ONLY THE NAME NEVER THE REAL VALUE)
-  TOKEN: ${{ secrets.YOUR_TOKEN }} # insert ${{ secrets.<TOKEN_NAME> }} and replace <TOKEN_NAME>
+  TOKEN: 'YOUR_TOKEN' # insert ${{ secrets.<TOKEN_NAME> }} and replace <TOKEN_NAME>
   #
   # To change predefined values, just override them
   REPOSITORY: ${{ github.repository }} # target repository (predefined: repo with this file)
@@ -95,7 +95,7 @@ jobs:
             URLS: 'https://github.com/sitdisch https://github.com/mythemeway'
             BADGES-ARGS: '-b pagespeed -o lighthouse_results/first_group -r'
             # Your defaults will be used unless you redefine the following env
-            TOKEN: $secrets.YOUR_TOKEN
+            TOKEN: "YOUR_TOKEN"
             # REPOSITORY:
             # BRANCH:
             # RESULTS-TYPE:
@@ -133,7 +133,7 @@ jobs:
       - uses: actions/checkout@v2
         with:
           repository: ${{ matrix.REPOSITORY || env.REPOSITORY }}
-          token: ${{ matrix.TOKEN || env.TOKEN }}
+          token: ${{ secrets[matrix.token] || secrets[env.TOKEN] }}
           ref: ${{matrix.BRANCH || env.BRANCH }}
       - uses: actions/checkout@v2
         with:
