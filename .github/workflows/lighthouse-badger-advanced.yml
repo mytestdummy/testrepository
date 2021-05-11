@@ -1,0 +1,110 @@
+# Lighthouse-Badger-Advanced | GitHub Action Workflow
+# 
+# Description: Generates, adds & updates manually/automatically Lighthouse badges & reports form one/multiple input URL-group(s) to one/multiple target repo(s)/branch(es)
+# Author: Sitdisch
+# Source: https://github.com/myactionway/lighthouse-badger-workflows
+# License: MIT
+# Copyright (c) 2021 Sitdisch
+
+name: 'Lighthouse-Badger-Advanced'
+
+########################################################################
+# DEFINE YOUR DEFAULTS (TOKEN, INPUTS & TRIGGERS) IN THE FOLLOWING
+########################################################################
+
+# TOKEN and INPUTS as environmental variables (env)
+env:
+  # Token for all triggers (INSERT ONLY THE NAME NEVER THE REAL VALUE)
+  TOKEN: ${{ secrets.YOUR_TOKEN }} # insert ${{ secrets.<TOKEN_NAME> }} and replace <TOKEN_NAME>
+  #
+  # To change predefined values, just override them
+  REPOSITORY: ${{ github.repository }} # target repository (predefined: repo with this file)
+  BRANCH: 'master' # target branch
+  USER-NAME: 'github-actions[bot]' # user who should commit
+  USER-EMAIL: '41898282+github-actions[bot]@users.noreply.github.com'
+  COMMIT-MESSAGE: 'Lighthouse-Badger[bot]: Results Added'
+  RESULTS-TYPE: 'both' # 'mobile', 'desktop', 'both' or 'both_p'
+  MOBILE-LIGHTHOUSE-PARAMS: '--throttling.cpuSlowdownMultiplier=2' # Lighthouse parameters mobile audit
+  DESKTOP-LIGHTHOUSE-PARAMS: '--preset=desktop --throttling.cpuSlowdownMultiplier=1' # Lighthouse parameters desktop audit
+
+# TRIGGERS
+on:
+  # page_build:
+  # schedule: # Check your schedule here => https://crontab.guru/
+  #   - cron: '55 23 * * 0' # e.g. every Sunday at 23:55
+  workflow_dispatch:
+    # No predefined inputs; The environmental variables defined in this file are used instead when this trigger is triggered.
+
+########################################################################
+# YOU CAN JUMP TO THE FIRST URL-GROUP DEFINITION BELOW
+########################################################################
+
+# Jobs
+jobs:
+  lighthouse-badger-advanced:
+    runs-on: ubuntu-20.04
+    strategy:
+      matrix:
+        include:
+          ##############################################################
+          # FIRST URL-GROUP | DEFINE YOUR ENV IN THE FOLLOWING
+          ##############################################################
+          - name: 'lighthouse-badger-group-1'
+            URLS: 'https://github.com/sitdisch https://github.com/mythemeway'
+            BADGES_ARGS: '-b pagespeed -o lighthouse_results/first_group -r'
+            # Your defaults will be used unless you redefine the following env
+            # TOKEN:
+            # REPOSITORY:
+            # BRANCH:
+            # RESULTS-TYPE:
+            # MOBILE-LIGHTHOUSE-PARAMS:
+            # DESKTOP-LIGHTHOUSE-PARAMS:
+            # USER-NAME:
+            # USER-EMAIL:
+            COMMIT-MESSAGE: 'Lighthouse-Badger[bot]: Results Added | First URL-Group'
+          ##############################################################
+          # SECOND URL-GROUP | DEFINE YOUR ENV IN THE FOLLOWING
+          ##############################################################
+          - name: 'lighthouse-badger-group-2'
+            URLS: 'https://mythemeway.github.io/Dark-Particle/ https://mythemeway.github.io/Dark-Particle/projects/2020/10/31/project-1.html'
+            BADGES_ARGS: '-b flat -o lighthouse_results/second_group -r'
+            # Your defaults will be used unless you redefine the following env
+            # TOKEN:
+            # REPOSITORY:
+            # BRANCH:
+            # RESULTS-TYPE:
+            # MOBILE-LIGHTHOUSE-PARAMS:
+            # DESKTOP-LIGHTHOUSE-PARAMS:
+            # USER-NAME:
+            # USER-EMAIL:
+            COMMIT-MESSAGE: 'Lighthouse-Badger[bot]: Results Added | Second URL-Group'
+          ##############################################################
+          # THIRD URL-GROUP | FEEL FREE TO ADD MORE URL-GROUPS LIKE ABOVE
+          ##############################################################
+          # 
+          # ...
+          # 
+    ####################################################################
+    # YOU DON'T HAVE TO DEFINE ANYTHING IN THE FOLLOWING
+    ####################################################################
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          repository: ${{ matrix.REPOSITORY || env.REPOSITORY }}
+          token: ${{ matrix.TOKEN || env.TOKEN }}
+          ref: ${{matrix.BRANCH || env.BRANCH }}
+      - uses: actions/checkout@v2
+        with:
+          repository: 'myactionway/lighthouse-badges'
+          path: temp_lighthouse_badges_nested
+      - name: ${{ matrix.name }}
+        uses: mytestdummy/testaction@master
+        with:
+          urls: ${{ matrix.URLS || env.URLS }}
+          badges-args: ${{ matrix.BADGES-ARGS || env.BADGES-ARGS }}
+          results-type: ${{ matrix.RESULTS-TYPE || env.RESULTS-TYPE }}
+          mobile-lighthouse-params: ${{ matrix.MOBILE-LIGHTHOUSE-PARAMS || env.MOBILE-LIGHTHOUSE-PARAMS }}
+          desktop-lighthouse-params: ${{ matrix.DESKTOP-LIGHTHOUSE-PARAMS || env.DESKTOP-LIGHTHOUSE-PARAMS }}
+          user-name: ${{ matrix.USER-NAME || env.USER-NAME }}
+          user-email: ${{ matrix.USER-EMAIL || env.USER-EMAIL }}
+          commit-message: ${{ matrix.COMMIT-MESSAGE || env.COMMIT-MESSAGE }}
