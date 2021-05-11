@@ -64,7 +64,7 @@ on:
         required: true
         default: '-b pagespeed -o lighthouse_results -r'
       results-type:
-        description: 'Results type: mobile, desktop, both, both_p'
+        description: 'Results type: mobile, desktop, both or both_p'
         required: true
         default: 'both'
       mobile-lighthouse-params:
