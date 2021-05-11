@@ -95,7 +95,7 @@ jobs:
             URLS: 'https://github.com/sitdisch https://github.com/mythemeway'
             BADGES-ARGS: '-b pagespeed -o lighthouse_results/first_group -r'
             # Your defaults will be used unless you redefine the following env
-            TOKEN: "${{ secrets.YOUR_TOKEN }}"
+            TOKEN: $secrets.YOUR_TOKEN
             # REPOSITORY:
             # BRANCH:
             # RESULTS-TYPE:
