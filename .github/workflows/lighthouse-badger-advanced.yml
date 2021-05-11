@@ -49,8 +49,8 @@ jobs:
           ##############################################################
           # FIRST URL-GROUP | DEFINE YOUR ENV IN THE FOLLOWING
           ##############################################################
-          - name: 'lighthouse-badger-group-1'
-            URLS: 'https://github.com/sitdisch https://github.com/mythemeway'
+          # - name: '1 URL-GROUP'
+          - URLS: 'https://github.com/sitdisch https://github.com/mythemeway'
             BADGES_ARGS: '-b pagespeed -o lighthouse_results/first_group -r'
             # Your defaults will be used unless you redefine the following env
             # TOKEN:
@@ -65,8 +65,8 @@ jobs:
           ##############################################################
           # SECOND URL-GROUP | DEFINE YOUR ENV IN THE FOLLOWING
           ##############################################################
-          - name: 'lighthouse-badger-group-2'
-            URLS: 'https://mythemeway.github.io/Dark-Particle/ https://mythemeway.github.io/Dark-Particle/projects/2020/10/31/project-1.html'
+          # - name: '2 URL-GROUP'
+          - URLS: 'https://mythemeway.github.io/Dark-Particle/ https://mythemeway.github.io/Dark-Particle/projects/2020/10/31/project-1.html'
             BADGES_ARGS: '-b flat -o lighthouse_results/second_group -r'
             # Your defaults will be used unless you redefine the following env
             # TOKEN:
@@ -97,8 +97,7 @@ jobs:
         with:
           repository: 'myactionway/lighthouse-badges'
           path: temp_lighthouse_badges_nested
-      - name: ${{ matrix.name }}
-        uses: mytestdummy/testaction@master
+      - uses: mytestdummy/testaction@master
         with:
           urls: ${{ matrix.URLS || env.URLS }}
           badges-args: ${{ matrix.BADGES-ARGS || env.BADGES-ARGS }}
