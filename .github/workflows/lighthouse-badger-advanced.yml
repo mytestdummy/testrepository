@@ -14,8 +14,8 @@ name: 'Lighthouse-Badger-Advanced'
 
 # TOKEN and INPUTS as environmental variables (env)
 env:
-  # Token for all triggers (INSERT ONLY THE NAME NEVER THE REAL VALUE)
-  TOKEN: 'YOUR_TOKEN' # insert ${{ secrets.<TOKEN_NAME> }} and replace <TOKEN_NAME>
+  # Insert only the name never the real value
+  TOKEN: 'YOUR_TOKEN' # e.g. 'YOUR_TOKEN'
   #
   # To change predefined values, just override them
   REPOSITORY: ${{ github.repository }} # target repository (predefined: repo with this file)
@@ -41,48 +41,6 @@ on:
 
 # Jobs
 jobs:
-  #lighthouse-badger-group-1:
-  #  runs-on: ubuntu-20.04
-  #  ####################################################################
-  #  # FIRST URL-GROUP | DEFINE YOUR ENV IN THE FOLLOWING
-  #  ####################################################################
-  #  env:
-  #    URLS: 'https://github.com/sitdisch https://github.com/mythemeway'
-  #    BADGES-ARGS: '-b pagespeed -o lighthouse_results/first_group -r'
-  #    COMMIT-MESSAGE: 'Lighthouse-Badger[bot]: Results Added | First URL-Group'
-  #    # Your defaults will be used unless you redefine the following env
-  #    # TOKEN:
-  #    # REPOSITORY:
-  #    # BRANCH:
-  #    # RESULTS-TYPE:
-  #    # MOBILE-LIGHTHOUSE-PARAMS:
-  #    # DESKTOP-LIGHTHOUSE-PARAMS:
-  #    # USER-NAME:
-  #    # USER-EMAIL:
-  #    # THAT'S IT; JUMP TO THE NEXT URL-GROUP
-  #  steps:
-  #    - uses: actions/checkout@v2
-  #      with:
-  #        repository: ${{ env.REPOSITORY }}
-  #        token: ${{ env.TOKEN }}
-  #        ref: ${{ env.BRANCH }}
-  #    - uses: actions/checkout@v2
-  #      with:
-  #        repository: 'myactionway/lighthouse-badges'
-  #        path: temp_lighthouse_badges_nested
-  #    - uses: mytestdummy/testaction@master
-  #      with:
-  #        urls: ${{ env.URLS }}
-  #        badges-args: ${{ env.BADGES-ARGS }}
-  #        results-type: ${{ env.RESULTS-TYPE }}
-  #        mobile-lighthouse-params: ${{ env.MOBILE-LIGHTHOUSE-PARAMS }}
-  #        desktop-lighthouse-params: ${{ env.DESKTOP-LIGHTHOUSE-PARAMS }}
-  #        user-name: ${{ env.USER-NAME }}
-  #        user-email: ${{ env.USER-EMAIL }}
-  #        commit-message: ${{ env.COMMIT-MESSAGE }}
-  # 
-  # 
-  # RESIDUUM
   lighthouse-badger-advanced:
     runs-on: ubuntu-20.04
     strategy:
@@ -94,8 +52,9 @@ jobs:
           - name: '1 URL-GROUP'
             URLS: 'https://github.com/sitdisch https://github.com/mythemeway'
             BADGES-ARGS: '-b pagespeed -o lighthouse_results/first_group -r'
+            COMMIT-MESSAGE: 'Lighthouse-Badger[bot]: Results Added | First URL-Group'
             # Your defaults will be used unless you redefine the following env
-            TOKEN: "YOUR_TOKEN"
+            TOKEN: "YOUR_TOKEN" # insert only the name never the real value
             # REPOSITORY:
             # BRANCH:
             # RESULTS-TYPE:
@@ -103,15 +62,15 @@ jobs:
             # DESKTOP-LIGHTHOUSE-PARAMS:
             # USER-NAME:
             # USER-EMAIL:
-            COMMIT-MESSAGE: 'Lighthouse-Badger[bot]: Results Added | First URL-Group'
           ##############################################################
           # SECOND URL-GROUP | DEFINE YOUR ENV IN THE FOLLOWING
           ##############################################################
           - name: '2 URL-GROUP'
             URLS: 'https://mythemeway.github.io/Dark-Particle/ https://mythemeway.github.io/Dark-Particle/projects/2020/10/31/project-1.html'
             BADGES-ARGS: '-b flat -o lighthouse_results/second_group -r'
+            COMMIT-MESSAGE: 'Lighthouse-Badger[bot]: Results Added | Second URL-Group'
             # Your defaults will be used unless you redefine the following env
-            # TOKEN:
+            # TOKEN: # insert only the name never the real value
             # REPOSITORY:
             # BRANCH:
             # RESULTS-TYPE:
@@ -119,7 +78,6 @@ jobs:
             # DESKTOP-LIGHTHOUSE-PARAMS:
             # USER-NAME:
             # USER-EMAIL:
-            COMMIT-MESSAGE: 'Lighthouse-Badger[bot]: Results Added | Second URL-Group'
           ##############################################################
           # THIRD URL-GROUP | FEEL FREE TO ADD MORE URL-GROUPS LIKE ABOVE
           ##############################################################
@@ -130,12 +88,12 @@ jobs:
     # THAT'S IT; YOU DON'T HAVE TO DEFINE ANYTHING IN THE FOLLOWING
     ####################################################################
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v2.3.4
         with:
           repository: ${{ matrix.REPOSITORY || env.REPOSITORY }}
           token: ${{ secrets[matrix.token] || secrets[env.TOKEN] }}
           ref: ${{matrix.BRANCH || env.BRANCH }}
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v2.3.4
         with:
           repository: 'myactionway/lighthouse-badges'
           path: temp_lighthouse_badges_nested
