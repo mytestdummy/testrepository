@@ -92,7 +92,8 @@ jobs:
   lighthouse-badger-default:
     runs-on: ubuntu-20.04
     steps:
-      - run: |
+      - name: Preparatory Tasks
+        run: |
           REPOSITORY=`expr "${{ env.REPO-BRANCH }}" : "\([^ ]*\)"`
           BRANCH=`expr "${{ env.REPO-BRANCH }}" : ".* \([^ ]*\)"`
           echo "REPOSITORY=$REPOSITORY" >> $GITHUB_ENV
