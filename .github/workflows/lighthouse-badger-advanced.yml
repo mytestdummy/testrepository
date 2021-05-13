@@ -39,6 +39,7 @@ on:
 # Jobs
 jobs:
   lighthouse-badger-advanced:
+    name: lighthouse-badger${{ matrix.NAME }}
     runs-on: ubuntu-20.04
     strategy:
       matrix:
@@ -46,7 +47,7 @@ jobs:
           ##############################################################
           # FIRST URL-GROUP | DEFINE YOUR ENV IN THE FOLLOWING
           ##############################################################
-          - NAME: '1 URL-GROUP'
+          - NAME: 'GROUP-1'
             URLS: 'https://github.com/sitdisch https://github.com/mythemeway'
             BADGES-ARGS: '-b pagespeed -o lighthouse_results/first_group -r'
             COMMIT-MESSAGE: 'Lighthouse-Badger[bot]: Results Added | First URL-Group'
@@ -61,7 +62,7 @@ jobs:
           ##############################################################
           # SECOND URL-GROUP | DEFINE YOUR ENV IN THE FOLLOWING
           ##############################################################
-          - NAME: '2 URL-GROUP'
+          - NAME: 'GROUP-2'
             URLS: 'https://mythemeway.github.io/Dark-Particle/ https://mythemeway.github.io/Dark-Particle/projects/2020/10/31/project-1.html'
             BADGES-ARGS: '-b flat -o lighthouse_results/second_group -r'
             COMMIT-MESSAGE: 'Lighthouse-Badger[bot]: Results Added | Second URL-Group'
@@ -100,8 +101,7 @@ jobs:
         with:
           repository: 'myactionway/lighthouse-badges'
           path: temp_lighthouse_badges_nested
-      - name: ${{ matrix.NAME }}
-        uses: mytestdummy/testaction@master
+      - uses: mytestdummy/testaction@master
         with:
           urls: ${{ matrix.URLS }}
           badges-args: ${{ matrix.BADGES-ARGS || env.BADGES-ARGS }}
