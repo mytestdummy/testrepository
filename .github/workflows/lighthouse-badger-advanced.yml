@@ -16,8 +16,7 @@ name: 'Lighthouse-Badger-Advanced'
 env:
   TOKEN: 'YOUR_TOKEN' # target token; insert only the name never the real value e.g. 'YOUR_TOKEN'
   # To change predefined values, just override them
-  REPOSITORY: ${{ github.repository }} # target repository (predefined: repo with this file)
-  BRANCH: 'master' # target branch
+  REPO-BRANCH: '${{ github.repository }} master' # target repository (predefined: repo with this file) and target branch
   USER-NAME: 'github-actions[bot]' # user who should commit
   USER-EMAIL: '41898282+github-actions[bot]@users.noreply.github.com'
   COMMIT-MESSAGE: 'Lighthouse-Badger[bot]: Results Added'
@@ -53,8 +52,7 @@ jobs:
             COMMIT-MESSAGE: 'Lighthouse-Badger[bot]: Results Added | First URL-Group'
             # Your defaults will be used unless you redefine the following env
             TOKEN: "YOUR_TOKEN" # insert only the name never the real value
-            # REPOSITORY:
-            # BRANCH:
+            # REPO-BRANCH:
             # RESULTS-TYPE:
             # MOBILE-LIGHTHOUSE-PARAMS:
             # DESKTOP-LIGHTHOUSE-PARAMS:
@@ -69,8 +67,7 @@ jobs:
             COMMIT-MESSAGE: 'Lighthouse-Badger[bot]: Results Added | Second URL-Group'
             # Your defaults will be used unless you redefine the following env
             # TOKEN: # insert only the name never the real value
-            # REPOSITORY:
-            # BRANCH:
+            # REPO-BRANCH:
             # RESULTS-TYPE:
             # MOBILE-LIGHTHOUSE-PARAMS:
             # DESKTOP-LIGHTHOUSE-PARAMS:
@@ -86,11 +83,19 @@ jobs:
     # THAT'S IT; YOU DON'T HAVE TO DEFINE ANYTHING IN THE FOLLOWING
     ####################################################################
     steps:
+      - name: Preparatory Tasks
+        run: |
+          REPOSITORY=`expr "${{ env.REPO-BRANCH }}" : "\([^ ]*\)"`
+          BRANCH=`expr "${{ env.REPO-BRANCH }}" : ".* \([^ ]*\)"`
+          echo "REPOSITORY=$REPOSITORY" >> $GITHUB_ENV
+          echo "BRANCH=$BRANCH" >> $GITHUB_ENV
+        env:
+          REPO-BRANCH: ${{ matrix.REPO-BRANCH || env.REPO-BRANCH }}
       - uses: actions/checkout@v2.3.4
         with:
-          repository: ${{ matrix.REPOSITORY || env.REPOSITORY }}
+          repository: ${{ env.REPOSITORY }}
           token: ${{ secrets[matrix.TOKEN] || secrets[env.TOKEN] }}
-          ref: ${{matrix.BRANCH || env.BRANCH }}
+          ref: ${{ env.BRANCH }}
       - uses: actions/checkout@v2.3.4
         with:
           repository: 'myactionway/lighthouse-badges'
