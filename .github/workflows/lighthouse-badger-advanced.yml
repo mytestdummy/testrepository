@@ -9,14 +9,12 @@
 name: 'Lighthouse-Badger-Advanced'
 
 ########################################################################
-# DEFINE YOUR DEFAULTS (TOKEN, INPUTS & TRIGGERS) IN THE FOLLOWING
+# DEFINE YOUR DEFAULTS (INPUTS & TRIGGERS) IN THE FOLLOWING
 ########################################################################
 
-# TOKEN and INPUTS as environmental variables (env)
+# INPUTS as environmental variables (env)
 env:
-  # Insert only the name never the real value
-  TOKEN: 'YOUR_TOKEN' # e.g. 'YOUR_TOKEN'
-  #
+  TOKEN: 'YOUR_TOKEN' # target token; insert only the name never the real value e.g. 'YOUR_TOKEN'
   # To change predefined values, just override them
   REPOSITORY: ${{ github.repository }} # target repository (predefined: repo with this file)
   BRANCH: 'master' # target branch
@@ -49,7 +47,7 @@ jobs:
           ##############################################################
           # FIRST URL-GROUP | DEFINE YOUR ENV IN THE FOLLOWING
           ##############################################################
-          - name: '1 URL-GROUP'
+          - NAME: '1 URL-GROUP'
             URLS: 'https://github.com/sitdisch https://github.com/mythemeway'
             BADGES-ARGS: '-b pagespeed -o lighthouse_results/first_group -r'
             COMMIT-MESSAGE: 'Lighthouse-Badger[bot]: Results Added | First URL-Group'
@@ -65,7 +63,7 @@ jobs:
           ##############################################################
           # SECOND URL-GROUP | DEFINE YOUR ENV IN THE FOLLOWING
           ##############################################################
-          - name: '2 URL-GROUP'
+          - NAME: '2 URL-GROUP'
             URLS: 'https://mythemeway.github.io/Dark-Particle/ https://mythemeway.github.io/Dark-Particle/projects/2020/10/31/project-1.html'
             BADGES-ARGS: '-b flat -o lighthouse_results/second_group -r'
             COMMIT-MESSAGE: 'Lighthouse-Badger[bot]: Results Added | Second URL-Group'
@@ -91,13 +89,13 @@ jobs:
       - uses: actions/checkout@v2.3.4
         with:
           repository: ${{ matrix.REPOSITORY || env.REPOSITORY }}
-          token: ${{ secrets[matrix.token] || secrets[env.TOKEN] }}
+          token: ${{ secrets[matrix.TOKEN] || secrets[env.TOKEN] }}
           ref: ${{matrix.BRANCH || env.BRANCH }}
       - uses: actions/checkout@v2.3.4
         with:
           repository: 'myactionway/lighthouse-badges'
           path: temp_lighthouse_badges_nested
-      - name: ${{ matrix.name }}
+      - name: ${{ matrix.NAME }}
         uses: mytestdummy/testaction@master
         with:
           urls: ${{ matrix.URLS }}

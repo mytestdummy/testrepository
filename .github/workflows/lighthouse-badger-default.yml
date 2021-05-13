@@ -9,18 +9,15 @@
 name: 'Lighthouse-Badger-Default'
 
 ########################################################################
-# DEFINE YOUR TOKEN, INPUTS AND TRIGGERS IN THE FOLLOWING
+# DEFINE YOUR INPUTS AND TRIGGERS IN THE FOLLOWING
 ########################################################################
 
-# TOKEN and INPUTS as environmental variables
+# INPUTS as environmental variables for not manually triggered workflows 
 env:
-  # Token for all triggers (INSERT ONLY THE NAME NEVER THE REAL VALUE)
-  TOKEN: ${{ secrets.YOUR_TOKEN }} # insert ${{ secrets.<TOKEN_NAME> }} and replace <TOKEN_NAME>
-  # 
-  # Inputs for not manually triggered workflows (if empty, defaults are used)
   URLS: # URL(s) to be checked e.g. 'https://github.com/sitdisch https://github.com/mythemeway'
-  REPOSITORY: # target repository e.g. 'dummy/mytargetrepo'
-  BRANCH: # target branch e.g. 'master'
+  TOKEN: 'YOUR_TOKEN' # target token; insert only the name never the real value e.g. 'YOUR_TOKEN'
+  # If any of the following env are blank, default are used instead
+  REPO&BRANCH: # target repository & branch e.g. 'dummy/mytargetrepo master'
   BADGES-ARGS: # badge-style '-b {flat,...}', preceding-label '-l "Lighthouse "', output-path '-o lighthouse_results/dummy', save-report '-r', single-badge '-s'
   RESULTS-TYPE: # 'mobile', 'desktop', 'both' or 'both_p' 
   MOBILE-LIGHTHOUSE-PARAMS: # Lighthouse parameters mobile audit
@@ -30,8 +27,7 @@ env:
   COMMIT-MESSAGE: # e.g. 'Lighthouse results added'
   # 
   # YOU DON'T HAVE TO DEFINE ANYTHING FOR THE DEFAULT VALUES
-  DEFAULT-REPOSITORY: ${{ github.repository }} # repo with this file
-  DEFAULT-BRANCH: 'master'
+  DEFAULT-REPO&BRANCH: '${{ github.repository }} master' # repo with this file and master
   DEFAULT-BADGES-ARGS: '-b pagespeed -o lighthouse_results -r'
   DEFAULT-RESULTS-TYPE: 'both'
   DEFAULT-MOBILE-LIGHTHOUSE-PARAMS: '--throttling.cpuSlowdownMultiplier=2'
@@ -52,13 +48,12 @@ on:
       urls:
         description: 'URL(s) to be checked'
         required: true
-      repository:
-        description: 'Target repository'
+      token:
+        description: 'Target token name (NO VALUE!)'
         required: true
-      branch:
-        description: 'Target branch'
+      repo&branch:
+        description: 'Target repository & branch'
         required: true
-        default: 'master'
       badges-args:
         description: 'Badges arguments: -b, -l, -o, -r, -s'
         required: true
@@ -97,11 +92,18 @@ jobs:
   lighthouse-badger-default:
     runs-on: ubuntu-20.04
     steps:
+      - run: |
+          REPOSITORY=`expr "${{ env.REPO&BRANCH }}" : "\([^ ]*\)"`
+          BRANCH=`expr "${{ env.REPO&BRANCH }}" : ".* \([^ ]*\)"`
+          echo "REPOSITORY=$REPOSITORY" >> $GITHUB_ENV
+          echo "BRANCH=$BRANCH" >> $GITHUB_ENV
+        env:
+          REPO&BRANCH: ${{ github.event.inputs.repo&branch || env.REPO&BRANCH || env.DEFAULT-REPO&BRANCH }}
       - uses: actions/checkout@v2.3.4
         with:
-          repository: ${{ github.event.inputs.repository || env.REPOSITORY || env.DEFAULT-REPOSITORY }}
-          token: ${{ env.TOKEN }}
-          ref: ${{ github.event.inputs.branch || env.BRANCH || env.DEFAULT-BRANCH }}
+          repository: ${{ env.REPOSITORY }}
+          token: ${{ secrets[github.event.inputs.token] || secrets[env.TOKEN] }}
+          ref: ${{ env.BRANCH }}
       - uses: actions/checkout@v2.3.4
         with:
           repository: 'myactionway/lighthouse-badges'
