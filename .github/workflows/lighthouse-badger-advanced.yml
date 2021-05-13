@@ -21,8 +21,8 @@ env:
   USER-EMAIL: '41898282+github-actions[bot]@users.noreply.github.com'
   COMMIT-MESSAGE: 'Lighthouse-Badger[bot]: Results Added'
   RESULTS-TYPE: 'both' # 'mobile', 'desktop', 'both' or 'both_p'
-  MOBILE-LIGHTHOUSE-PARAMS: '--quiet --throttling.cpuSlowdownMultiplier=2' # Lighthouse parameters mobile audit
-  DESKTOP-LIGHTHOUSE-PARAMS: '--quiet --preset=desktop --throttling.cpuSlowdownMultiplier=1' # Lighthouse parameters desktop audit
+  MOBILE-LIGHTHOUSE-PARAMS: '--throttling.cpuSlowdownMultiplier=2' # Lighthouse parameters mobile audit
+  DESKTOP-LIGHTHOUSE-PARAMS: '--preset=desktop --throttling.cpuSlowdownMultiplier=1' # Lighthouse parameters desktop audit
 
 # TRIGGERS
 on:
@@ -67,8 +67,8 @@ jobs:
             BADGES-ARGS: '-b flat -o lighthouse_results/second_group -r'
             COMMIT-MESSAGE: 'Lighthouse-Badger[bot]: Results Added | Second URL-Group'
             # Your defaults will be used unless you redefine the following env
-            # TOKEN: # insert only the name never the real value
-            # REPO-BRANCH:
+            TOKEN: 'SITDISCH_WORKFLOW_REPO_TOKEN' # insert only the name never the real value
+            REPO-BRANCH: 'sitdisch/test master'
             # RESULTS-TYPE:
             # MOBILE-LIGHTHOUSE-PARAMS:
             # DESKTOP-LIGHTHOUSE-PARAMS:
