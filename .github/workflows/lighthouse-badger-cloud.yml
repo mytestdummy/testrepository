@@ -21,7 +21,7 @@ env:
   USER-EMAIL: '41898282+github-actions[bot]@users.noreply.github.com'
   COMMIT-MESSAGE: 'Lighthouse-Badger[bot]: Results Added'
   RESULTS-TYPE: 'both' # 'mobile', 'desktop', 'both' or 'both_p'
-  MOBILE-LIGHTHOUSE-PARAMS: '--throttling.cpuSlowdownMultiplier=2' # Lighthouse parameters mobile audit
+  MOBILE-LIGHTHOUSE-PARAMS: '--throttling.cpuSlowdownMultiplier=1' # Lighthouse parameters mobile audit
   DESKTOP-LIGHTHOUSE-PARAMS: '--preset=desktop --throttling.cpuSlowdownMultiplier=1' # Lighthouse parameters desktop audit
 
 # TRIGGERS
@@ -49,7 +49,7 @@ jobs:
           ##############################################################
           - NAME: 'URL-GROUP 1'
             URLS: 'https://sitdisch.github.io https://sitdisch.github.io/mythemeway/2020/11/01/dark-particle.html https://sitdisch.github.io/mythemeway/2020/11/01/light-particle.html https://sitdisch.github.io/privacy-policy.html'
-            BADGES-ARGS: '-b pagespeed -o lighthouse_results/sitdisch -r'
+            BADGES-ARGS: '-b pagespeed -o test/sitdisch -r'
             COMMIT-MESSAGE: 'Lighthouse Results Refreshed | Sitdisch'
             # Your defaults will be used unless you redefine the following env
             # TOKEN: # insert only the name never the real value
@@ -64,7 +64,7 @@ jobs:
           ##############################################################
           - NAME: 'URL-GROUP 2'
             URLS: 'https://mythemeway.github.io/Dark-Particle/ https://mythemeway.github.io/Dark-Particle/projects/2020/10/31/project-1.html'
-            BADGES-ARGS: '-b pagespeed -o lighthouse_results/dark_particle -r'
+            BADGES-ARGS: '-b pagespeed -o test/dark_particle -r'
             COMMIT-MESSAGE: 'Lighthouse Results Refreshed | Dark-Particle'
             # Your defaults will be used unless you redefine the following env
             # TOKEN: # insert only the name never the real value
@@ -79,7 +79,7 @@ jobs:
           ##############################################################
           - NAME: 'URL-GROUP 3'
             URLS: 'https://mythemeway.github.io/Light-Particle/ https://mythemeway.github.io/Light-Particle/projects/2020/10/31/project-1.html'
-            BADGES-ARGS: '-b pagespeed -o lighthouse_results/light_particle -r'
+            BADGES-ARGS: '-b pagespeed -o test/light_particle -r'
             COMMIT-MESSAGE: 'Lighthouse Results Refreshed | Light-Particle'
             # Your defaults will be used unless you redefine the following env
             # TOKEN: # insert only the name never the real value
