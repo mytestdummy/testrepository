@@ -68,7 +68,7 @@ jobs:
             COMMIT-MESSAGE: 'Lighthouse-Badger[bot]: Results Added | Second URL-Group'
             # Your defaults will be used unless you redefine the following env
             # TOKEN: # insert only the name never the real value
-            REPO-BRANCH: 'mytestdummy/test master'
+            # REPO-BRANCH:
             # RESULTS-TYPE:
             # MOBILE-LIGHTHOUSE-PARAMS:
             # DESKTOP-LIGHTHOUSE-PARAMS:
