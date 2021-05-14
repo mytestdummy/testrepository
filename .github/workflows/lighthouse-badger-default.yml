@@ -12,14 +12,14 @@ name: 'Lighthouse-Badger-Default'
 # DEFINE YOUR INPUTS AND TRIGGERS IN THE FOLLOWING
 ########################################################################
 
-# INPUTS as environmental variables for not manually triggered workflows 
+# INPUTS as environmental variables (env) for not manually triggered workflows 
 env:
   URLS: # URL(s) to be checked e.g. 'https://github.com/sitdisch https://github.com/mythemeway'
-  TOKEN: 'YOUR_TOKEN' # target token; insert only the name never the real value e.g. 'YOUR_TOKEN'
-  # If any of the following env are blank, default are used instead
+  TOKEN: # target token; insert only the name never the real value e.g. 'LIGHTHOUSE_BADGER_TOKEN'
+  # If any of the following env are blank, a default value is used instead
   REPO-BRANCH: # target repository & branch e.g. 'dummy/mytargetrepo master'
   BADGES-ARGS: # badge-style '-b {flat,...}', preceding-label '-l "Lighthouse "', output-path '-o lighthouse_results/dummy', save-report '-r', single-badge '-s'
-  RESULTS-TYPE: # 'mobile', 'desktop', 'both' or 'both_p' 
+  AUDIT-TYPE: # 'mobile', 'desktop', 'both' or 'both_p' 
   MOBILE-LIGHTHOUSE-PARAMS: # Lighthouse parameters mobile audit
   DESKTOP-LIGHTHOUSE-PARAMS: # Lighthouse parameters desktop audit
   USER-NAME: # user who should commit e.g. 'dummy'
@@ -27,9 +27,9 @@ env:
   COMMIT-MESSAGE: # e.g. 'Lighthouse results added'
   # 
   # YOU DON'T HAVE TO DEFINE ANYTHING FOR THE DEFAULT VALUES
-  DEFAULT-REPO-BRANCH: '${{ github.repository }} master' # repo with this file and master
+  DEFAULT-REPO-BRANCH: '${{ github.repository }} master' # repo with this file and master branch
   DEFAULT-BADGES-ARGS: '-b pagespeed -o lighthouse_results -r'
-  DEFAULT-RESULTS-TYPE: 'both'
+  DEFAULT-AUDIT-TYPE: 'both'
   DEFAULT-MOBILE-LIGHTHOUSE-PARAMS: '--throttling.cpuSlowdownMultiplier=2'
   DEFAULT-DESKTOP-LIGHTHOUSE-PARAMS: '--preset=desktop --throttling.cpuSlowdownMultiplier=1'
   DEFAULT-USER-NAME: 'github-actions[bot]'
@@ -58,8 +58,8 @@ on:
         description: 'Badges arguments: -b, -l, -o, -r, -s'
         required: true
         default: '-b pagespeed -o lighthouse_results -r'
-      results-type:
-        description: 'Results type: mobile, desktop, both or both_p'
+      audit-type:
+        description: 'Audit type: mobile, desktop, both or both_p'
         required: true
         default: 'both'
       mobile-lighthouse-params:
@@ -113,7 +113,7 @@ jobs:
         with:
           urls: ${{ github.event.inputs.urls || env.URLS }}
           badges-args: ${{ github.event.inputs.badges-args || env.BADGES-ARGS || env.DEFAULT-BADGES-ARGS }}
-          results-type: ${{ github.event.inputs.results-type || env.RESULTS-TYPE || env.DEFAULT-RESULTS-TYPE }}
+          audit-type: ${{ github.event.inputs.audit-type || env.AUDIT-TYPE || env.DEFAULT-AUDIT-TYPE }}
           mobile-lighthouse-params: ${{ github.event.inputs.mobile-lighthouse-params || env.MOBILE-LIGHTHOUSE-PARAMS || env.DEFAULT-MOBILE-LIGHTHOUSE-PARAMS }}
           desktop-lighthouse-params: ${{ github.event.inputs.desktop-lighthouse-params || env.DESKTOP-LIGHTHOUSE-PARAMS || env.DEFAULT-DESKTOP-LIGHTHOUSE-PARAMS }}
           user-name: ${{ github.event.inputs.user-name || env.USER-NAME || env.DEFAULT-USER-NAME }}

@@ -1,6 +1,6 @@
 # Lighthouse-Badger-Advanced | GitHub Action Workflow
 # 
-# Description: Generates, adds & updates manually/automatically Lighthouse badges & reports form one/multiple input URL-group(s) to one/multiple target repo(s)/branch(es)
+# Description: Generates, adds & updates manually/automatically Lighthouse badges & reports form one/multiple input URL-group(s) in parallel to one/multiple target repo(s)/branch(es)
 # Author: Sitdisch
 # Source: https://github.com/myactionway/lighthouse-badger-workflows
 # License: MIT
@@ -14,13 +14,13 @@ name: 'Lighthouse-Badger-Advanced'
 
 # INPUTS as environmental variables (env)
 env:
-  TOKEN: 'YOUR_TOKEN' # target token; insert only the name never the real value e.g. 'YOUR_TOKEN'
+  TOKEN: # target token; insert only the name never the real value e.g. 'LIGHTHOUSE_BADGER_TOKEN'
   # To change predefined values, just override them
-  REPO-BRANCH: '${{ github.repository }} master' # target repository (predefined: repo with this file) and target branch
+  REPO-BRANCH: '${{ github.repository }} master' # target repository & branch (predefined: repo with this file and master branch)
   USER-NAME: 'github-actions[bot]' # user who should commit
   USER-EMAIL: '41898282+github-actions[bot]@users.noreply.github.com'
   COMMIT-MESSAGE: 'Lighthouse-Badger[bot]: Results Added'
-  RESULTS-TYPE: 'both' # 'mobile', 'desktop', 'both' or 'both_p'
+  AUDIT-TYPE: 'both' # 'mobile', 'desktop', 'both' or 'both_p'
   MOBILE-LIGHTHOUSE-PARAMS: '--throttling.cpuSlowdownMultiplier=2' # Lighthouse parameters mobile audit
   DESKTOP-LIGHTHOUSE-PARAMS: '--preset=desktop --throttling.cpuSlowdownMultiplier=1' # Lighthouse parameters desktop audit
 
@@ -52,9 +52,9 @@ jobs:
             BADGES-ARGS: '-b pagespeed -o lighthouse_results/first_group -r'
             COMMIT-MESSAGE: 'Lighthouse-Badger[bot]: Results Added | First URL-Group'
             # Your defaults will be used unless you redefine the following env
-            # TOKEN: # insert only the name never the real value
+            # TOKEN:
             # REPO-BRANCH:
-            # RESULTS-TYPE:
+            # AUDIT-TYPE:
             # MOBILE-LIGHTHOUSE-PARAMS:
             # DESKTOP-LIGHTHOUSE-PARAMS:
             # USER-NAME:
@@ -67,9 +67,9 @@ jobs:
             BADGES-ARGS: '-b flat -o lighthouse_results/second_group -r'
             COMMIT-MESSAGE: 'Lighthouse-Badger[bot]: Results Added | Second URL-Group'
             # Your defaults will be used unless you redefine the following env
-            # TOKEN: # insert only the name never the real value
+            # TOKEN:
             # REPO-BRANCH:
-            # RESULTS-TYPE:
+            # AUDIT-TYPE:
             # MOBILE-LIGHTHOUSE-PARAMS:
             # DESKTOP-LIGHTHOUSE-PARAMS:
             # USER-NAME:
@@ -105,7 +105,7 @@ jobs:
         with:
           urls: ${{ matrix.URLS }}
           badges-args: ${{ matrix.BADGES-ARGS || env.BADGES-ARGS }}
-          results-type: ${{ matrix.RESULTS-TYPE || env.RESULTS-TYPE }}
+          audit-type: ${{ matrix.AUDIT-TYPE || env.AUDIT-TYPE }}
           mobile-lighthouse-params: ${{ matrix.MOBILE-LIGHTHOUSE-PARAMS || env.MOBILE-LIGHTHOUSE-PARAMS }}
           desktop-lighthouse-params: ${{ matrix.DESKTOP-LIGHTHOUSE-PARAMS || env.DESKTOP-LIGHTHOUSE-PARAMS }}
           user-name: ${{ matrix.USER-NAME || env.USER-NAME }}
