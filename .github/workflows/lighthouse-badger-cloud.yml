@@ -48,7 +48,7 @@ jobs:
           # FIRST URL-GROUP | DEFINE YOUR ENV IN THE FOLLOWING
           ##############################################################
           - NAME: 'URL-GROUP 1'
-            URLS: 'URLS='https://sitdisch.github.io https://sitdisch.github.io/mythemeway/2020/11/01/dark-particle.html https://sitdisch.github.io/mythemeway/2020/11/01/light-particle.html https://sitdisch.github.io/privacy-policy.html'
+            URLS: 'https://sitdisch.github.io https://sitdisch.github.io/mythemeway/2020/11/01/dark-particle.html https://sitdisch.github.io/mythemeway/2020/11/01/light-particle.html https://sitdisch.github.io/privacy-policy.html'
             BADGES-ARGS: '-b pagespeed -o lighthouse_results/sitdisch -r'
             COMMIT-MESSAGE: 'Lighthouse Results Refreshed | Sitdisch'
             # Your defaults will be used unless you redefine the following env
