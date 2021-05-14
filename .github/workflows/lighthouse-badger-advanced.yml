@@ -52,7 +52,7 @@ jobs:
             BADGES-ARGS: '-b pagespeed -o lighthouse_results/first_group -r'
             COMMIT-MESSAGE: 'Lighthouse-Badger[bot]: Results Added | First URL-Group'
             # Your defaults will be used unless you redefine the following env
-            TOKEN: 'YOUR_TOKEN' # insert only the name never the real value
+            # TOKEN: # insert only the name never the real value
             # REPO-BRANCH:
             # RESULTS-TYPE:
             # MOBILE-LIGHTHOUSE-PARAMS:
@@ -67,8 +67,8 @@ jobs:
             BADGES-ARGS: '-b flat -o lighthouse_results/second_group -r'
             COMMIT-MESSAGE: 'Lighthouse-Badger[bot]: Results Added | Second URL-Group'
             # Your defaults will be used unless you redefine the following env
-            TOKEN: 'SITDISCH_WORKFLOW_REPO_TOKEN' # insert only the name never the real value
-            REPO-BRANCH: 'sitdisch/cloud master'
+            # TOKEN: # insert only the name never the real value
+            REPO-BRANCH: 'mytestdummy/test master'
             # RESULTS-TYPE:
             # MOBILE-LIGHTHOUSE-PARAMS:
             # DESKTOP-LIGHTHOUSE-PARAMS:
