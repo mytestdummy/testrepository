@@ -52,7 +52,7 @@ jobs:
             BADGES-ARGS: '-b pagespeed -o lighthouse_results/first_group -r'
             COMMIT-MESSAGE: 'Lighthouse-Badger[bot]: Results Added | First URL-Group'
             # Your defaults will be used unless you redefine the following env
-            # TOKEN: "YOUR_TOKEN" # insert only the name never the real value
+            TOKEN: 'YOUR_TOKEN' # insert only the name never the real value
             # REPO-BRANCH:
             # RESULTS-TYPE:
             # MOBILE-LIGHTHOUSE-PARAMS:
