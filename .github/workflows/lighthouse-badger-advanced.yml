@@ -14,7 +14,7 @@ name: 'Lighthouse-Badger-Advanced'
 
 # INPUTS as environmental variables (env)
 env:
-  TOKEN_NAME: 'SITDISCH_REPO_TOKEN' # target token name; insert only the name never the real value e.g. 'LIGHTHOUSE_BADGER_TOKEN'
+  TOKEN_NAME: 'YOUR_TOKEN' # target token name; insert only the name never the real value e.g. 'LIGHTHOUSE_BADGER_TOKEN'
   # To change predefined values, just override them
   REPO_BRANCH: 'sitdisch/cloud master' # target repository & branch (predefined: repo with this file and master branch)
   USER_NAME: 'github-actions[bot]' # user who should commit
