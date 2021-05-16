@@ -120,3 +120,4 @@ jobs:
           user_name: ${{ matrix.USER_NAME || env.USER_NAME }}
           user_email: ${{ matrix.USER_EMAIL || env.USER_EMAIL }}
           commit_message: ${{ matrix.COMMIT_MESSAGE || env.COMMIT_MESSAGE }}
+          max_push_attempts: 6
