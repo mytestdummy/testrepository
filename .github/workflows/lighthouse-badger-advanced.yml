@@ -16,7 +16,7 @@ name: 'Lighthouse-Badger-Advanced'
 env:
   TOKEN_NAME: 'YOUR_TOKEN' # target token name; insert only the name never the real value e.g. 'LIGHTHOUSE_BADGER_TOKEN'
   # To change predefined values, just override them
-  REPO_BRANCH: 'mytestdummy/testrepository master' # target repository & branch (predefined: repo with this file and master branch)
+  REPO_BRANCH: '${{ github.repository }} master' # target repository & branch (predefined: repo with this file and master branch)
   USER_NAME: 'github-actions[bot]' # user who should commit
   USER_EMAIL: '41898282+github-actions[bot]@users.noreply.github.com'
   AUDIT_TYPE: 'both' # 'mobile', 'desktop', 'both' or 'both_p'
@@ -27,8 +27,8 @@ env:
 # TRIGGERS
 on:
   # page_build:
-  schedule: # Check your schedule here => https://crontab.guru/
-    - cron: '55 23 * * 0' # e.g. every Sunday at 23:55
+  # schedule: # Check your schedule here => https://crontab.guru/
+  #   - cron: '55 23 * * 0' # e.g. every Sunday at 23:55
   workflow_dispatch:
     # No predefined inputs; The env defined in this file are used instead when this trigger is triggered.
 
@@ -47,10 +47,9 @@ jobs:
           ##############################################################
           # FIRST URL-GROUP | DEFINE YOUR ENV IN THE FOLLOWING
           ##############################################################
-          - NAME: 'URL-GROUP | Sitdisch'
-            URLS: 'https://sitdisch.github.io https://sitdisch.github.io/mythemeway/2020/11/01/dark-particle.html https://sitdisch.github.io/mythemeway/2020/11/01/light-particle.html https://sitdisch.github.io/privacy-policy.html'
-            BADGES_ARGS: '-b pagespeed -o lighthouse_results/sitdisch -r'
-            COMMIT_MESSAGE: 'Lighthouse-Badger[bot]: Results Added | Sitdisch'
+          - NAME: 'URL-GROUP 1'
+            URLS: 'https://github.com/sitdisch https://github.com/mythemeway'
+            BADGES_ARGS: '-b pagespeed -o lighthouse_results/first_group -r'
             # Your defaults will be used unless you redefine a following env
             # TOKEN_NAME:
             # REPO_BRANCH:
@@ -59,13 +58,13 @@ jobs:
             # DESKTOP_LIGHTHOUSE_PARAMS:
             # USER_NAME:
             # USER_EMAIL:
+            # COMMIT_MESSAGE:
           ##############################################################
           # SECOND URL-GROUP | DEFINE YOUR ENV IN THE FOLLOWING
           ##############################################################
-          - NAME: 'URL-GROUP | Dark-Particle'
+          - NAME: 'URL-GROUP 2'
             URLS: 'https://mythemeway.github.io/Dark-Particle/ https://mythemeway.github.io/Dark-Particle/projects/2020/10/31/project-1.html'
-            BADGES_ARGS: '-b pagespeed -o lighthouse_results/dark_particle -r'
-            COMMIT_MESSAGE: 'Lighthouse-Badger[bot]: Results Added | Dark-Particle'
+            BADGES_ARGS: '-b flat -o lighthouse_results/second_group -r'
             # Your defaults will be used unless you redefine a following env
             # TOKEN_NAME:
             # REPO_BRANCH:
@@ -74,21 +73,13 @@ jobs:
             # DESKTOP_LIGHTHOUSE_PARAMS:
             # USER_NAME:
             # USER_EMAIL:
+            # COMMIT_MESSAGE:
           ##############################################################
-          # THIRD URL-GROUP | DEFINE YOUR ENV IN THE FOLLOWING
+          # THIRD URL-GROUP | FEEL FREE TO ADD MORE URL-GROUPS LIKE ABOVE
           ##############################################################
-          - NAME: 'URL-GROUP | Light-Particle'
-            URLS: 'https://mythemeway.github.io/Light-Particle/ https://mythemeway.github.io/Light-Particle/projects/2020/10/31/project-1.html'
-            BADGES_ARGS: '-b pagespeed -o lighthouse_results/light_particle -r'
-            COMMIT_MESSAGE: 'Lighthouse-Badger[bot]: Results Added | Light-Particle'
-            # Your defaults will be used unless you redefine a following env
-            # TOKEN_NAME:
-            # REPO_BRANCH:
-            # AUDIT_TYPE:
-            # MOBILE_LIGHTHOUSE_PARAMS:
-            # DESKTOP_LIGHTHOUSE_PARAMS:
-            # USER_NAME:
-            # USER_EMAIL:
+          # 
+          # ...
+          # 
     ####################################################################
     # THAT'S IT; YOU DON'T HAVE TO DEFINE ANYTHING IN THE FOLLOWING
     ####################################################################
@@ -110,7 +101,7 @@ jobs:
         with:
           repository: 'myactionway/lighthouse-badges'
           path: temp_lighthouse_badges_nested
-      - uses: mytestdummy/testaction@master
+      - uses: myactionway/lighthouse-badger-action@v2.1
         with:
           urls: ${{ matrix.URLS }}
           badges_args: ${{ matrix.BADGES_ARGS || env.BADGES_ARGS }}
