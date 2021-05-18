@@ -67,7 +67,7 @@ jobs:
             BADGES_ARGS: '-b flat -o lighthouse_results/second_group -r'
             # Your defaults will be used unless you redefine a following env
             # TOKEN_NAME:
-            # REPO_BRANCH:
+            REPO_BRANCH: '${{ github.repository }} test'
             # AUDIT_TYPE:
             # MOBILE_LIGHTHOUSE_PARAMS:
             # DESKTOP_LIGHTHOUSE_PARAMS:
