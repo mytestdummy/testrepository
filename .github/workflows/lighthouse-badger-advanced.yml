@@ -42,6 +42,7 @@ jobs:
     name: ${{ matrix.NAME }}
     runs-on: ubuntu-20.04
     strategy:
+      fail-fast: false
       matrix:
         include:
           ##############################################################
@@ -75,7 +76,9 @@ jobs:
             # USER_EMAIL:
             # COMMIT_MESSAGE:
           ##############################################################
-          # THIRD URL-GROUP | FEEL FREE TO ADD MORE URL-GROUPS LIKE ABOVE
+          - NAME: 'URL-GROUP 3'
+            URLS: 'https://mythemeway.github.io/Light-Particle/'
+            BADGES_ARGS: '-b flat -o lighthouse_results/third_group -r'
           ##############################################################
           # 
           # ...
