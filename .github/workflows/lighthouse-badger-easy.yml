@@ -17,7 +17,6 @@ env:
   URLS: # URL(s) to be checked e.g. 'https://github.com/sitdisch https://github.com/mythemeway'
   TOKEN_NAME: # target token name; insert only the name never the real value e.g. 'LIGHTHOUSE_BADGER_TOKEN'
   # If any of the following env is blank, a default value is used instead
-  REPO_BRANCH: # target repository & branch e.g. 'dummy/mytargetrepo master'
 # TRIGGERS
 on:
   # page_build:
@@ -32,9 +31,6 @@ on:
         required: true
       token_name:
         description: 'Target token name (NO VALUE!)'
-        required: true
-      repo_branch:
-        description: 'Target repository & branch'
         required: true
 
 ########################################################################
@@ -53,7 +49,7 @@ jobs:
           echo "REPOSITORY=$REPOSITORY" >> $GITHUB_ENV
           echo "BRANCH=$BRANCH" >> $GITHUB_ENV
         env:
-          REPO_BRANCH: ${{ github.event.inputs.repo_branch || env.REPO_BRANCH || env.DEFAULT_REPO_BRANCH }}
+          REPO_BRANCH: ${{ github.repository }}' master'
       - uses: actions/checkout@v2.3.4
         with:
           repository: ${{ env.REPOSITORY }}
