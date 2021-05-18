@@ -47,9 +47,10 @@ jobs:
           ##############################################################
           # FIRST URL-GROUP | DEFINE YOUR ENV IN THE FOLLOWING
           ##############################################################
-          - NAME: 'URL-GROUP 1'
-            URLS: 'https://github.com/sitdisch https://github.com/mythemeway'
-            BADGES_ARGS: '-b pagespeed -o lighthouse_results/first_group -r'
+          - NAME: 'URL-GROUP | Sitdisch'
+            URLS: 'https://sitdisch.github.io https://sitdisch.github.io/mythemeway/2020/11/01/dark-particle.html https://sitdisch.github.io/mythemeway/2020/11/01/light-particle.html https://sitdisch.github.io/privacy-policy.html'
+            BADGES_ARGS: '-b pagespeed -o lighthouse_results/sitdisch -r'
+            COMMIT_MESSAGE: 'Lighthouse-Badger[bot]: Results Added | Sitdisch'
             # Your defaults will be used unless you redefine a following env
             # TOKEN_NAME:
             # REPO_BRANCH:
@@ -58,28 +59,36 @@ jobs:
             # DESKTOP_LIGHTHOUSE_PARAMS:
             # USER_NAME:
             # USER_EMAIL:
-            # COMMIT_MESSAGE:
           ##############################################################
           # SECOND URL-GROUP | DEFINE YOUR ENV IN THE FOLLOWING
           ##############################################################
-          - NAME: 'URL-GROUP 2'
+          - NAME: 'URL-GROUP | Dark-Particle'
             URLS: 'https://mythemeway.github.io/Dark-Particle/ https://mythemeway.github.io/Dark-Particle/projects/2020/10/31/project-1.html'
-            BADGES_ARGS: '-b flat -o lighthouse_results/second_group -r'
+            BADGES_ARGS: '-b pagespeed -o lighthouse_results/dark_particle -r'
+            COMMIT_MESSAGE: 'Lighthouse-Badger[bot]: Results Added | Dark-Particle'
             # Your defaults will be used unless you redefine a following env
             # TOKEN_NAME:
-            REPO_BRANCH: '${{ github.repository }} test'
+            # REPO_BRANCH:
             # AUDIT_TYPE:
             # MOBILE_LIGHTHOUSE_PARAMS:
             # DESKTOP_LIGHTHOUSE_PARAMS:
             # USER_NAME:
             # USER_EMAIL:
-            # COMMIT_MESSAGE:
           ##############################################################
-          # THIRD URL-GROUP | FEEL FREE TO ADD MORE URL-GROUPS LIKE ABOVE
+          # THIRD URL-GROUP | DEFINE YOUR ENV IN THE FOLLOWING
           ##############################################################
-          # 
-          # ...
-          # 
+          - NAME: 'URL-GROUP | Light-Particle'
+            URLS: 'https://mythemeway.github.io/Light-Particle/ https://mythemeway.github.io/Light-Particle/projects/2020/10/31/project-1.html'
+            BADGES_ARGS: '-b pagespeed -o lighthouse_results/light_particle -r'
+            COMMIT_MESSAGE: 'Lighthouse-Badger[bot]: Results Added | Light-Particle'
+            # Your defaults will be used unless you redefine a following env
+            # TOKEN_NAME:
+            # REPO_BRANCH:
+            # AUDIT_TYPE:
+            # MOBILE_LIGHTHOUSE_PARAMS:
+            # DESKTOP_LIGHTHOUSE_PARAMS:
+            # USER_NAME:
+            # USER_EMAIL:
     ####################################################################
     # THAT'S IT; YOU DON'T HAVE TO DEFINE ANYTHING IN THE FOLLOWING
     ####################################################################
