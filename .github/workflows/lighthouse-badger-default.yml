@@ -119,3 +119,4 @@ jobs:
           user_name: ${{ github.event.inputs.user_name || env.USER_NAME || env.DEFAULT_USER_NAME }}
           user_email: ${{ github.event.inputs.user_email || env.USER_EMAIL || env.DEFAULT_USER_EMAIL }}
           commit_message: ${{ github.event.inputs.commit_message || env.COMMIT_MESSAGE || env.DEFAULT_COMMIT_MESSAGE }}
+          max_push_attempts: 6
