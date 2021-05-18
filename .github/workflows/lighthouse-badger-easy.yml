@@ -49,7 +49,7 @@ jobs:
           echo "REPOSITORY=$REPOSITORY" >> $GITHUB_ENV
           echo "BRANCH=$BRANCH" >> $GITHUB_ENV
         env:
-          REPO_BRANCH: ${{ github.repository }}' master'
+          REPO_BRANCH: ${{ github.repository }} master
       - uses: actions/checkout@v2.3.4
         with:
           repository: ${{ env.REPOSITORY }}
