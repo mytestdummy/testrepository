@@ -1,6 +1,6 @@
 # Lighthouse-Badger-Easy | GitHub Action Workflow
 # 
-# Description: Generates, adds & updates manually/automatically Lighthouse badges & reports from one/multiple input URL(s) to a selected target repository & branch
+# Description: Generates, adds & updates manually/automatically Lighthouse badges & reports from one/multiple input URL(s) to the current repository & master branch with minimal settings
 # Author: Sitdisch
 # Source: https://github.com/myactionway/lighthouse-badger-workflows
 # License: MIT
@@ -16,7 +16,9 @@ name: 'Lighthouse-Badger-Easy'
 env:
   URLS: # URL(s) to be checked e.g. 'https://github.com/sitdisch https://github.com/mythemeway'
   TOKEN_NAME: # target token name; insert only the name never the real value e.g. 'LIGHTHOUSE_BADGER_TOKEN'
-  # If any of the following env is blank, a default value is used instead
+  # THAT'S IT; JUMP TO THE TRIGGERS;
+  REPO_BRANCH: '${{ github.repository }} master' # target repo & branch
+
 # TRIGGERS
 on:
   # page_build:
@@ -37,7 +39,6 @@ on:
 # THAT'S IT; YOU DON'T HAVE TO DEFINE ANYTHING IN THE FOLLOWING
 ########################################################################
 
-# Jobs
 jobs:
   lighthouse-badger-easy:
     runs-on: ubuntu-20.04
@@ -48,8 +49,6 @@ jobs:
           BRANCH=`expr "${{ env.REPO_BRANCH }}" : ".* \([^ ]*\)"`
           echo "REPOSITORY=$REPOSITORY" >> $GITHUB_ENV
           echo "BRANCH=$BRANCH" >> $GITHUB_ENV
-        env:
-          REPO_BRANCH: ${{ github.repository }} master
       - uses: actions/checkout@v2.3.4
         with:
           repository: ${{ env.REPOSITORY }}
