@@ -45,8 +45,8 @@ jobs:
           ##############################################################
           # FIRST TARGET BRANCH | DEFINE YOUR ENV IN THE FOLLOWING
           ##############################################################
-          - NAME: 'Target Branch 1'
-            NEW_FIRST_COMMIT: 'HEAD~10' # e.g. commit-hash or HEAD~N etc.
+          - NAME: 'Pruning Branch 1'
+            NEW_FIRST_COMMIT: HEAD~20 # e.g. commit-hash or HEAD~N etc.
             BRANCH: 'master'
             # Your defaults will be used unless you redefine a following env
             # TOKEN_NAME:
@@ -56,8 +56,8 @@ jobs:
           ##############################################################
           # SECOND TARGET BRANCH | DEFINE YOUR ENV IN THE FOLLOWING
           ##############################################################
-          - NAME: 'Target Branch 2'
-            NEW_FIRST_COMMIT: 'HEAD~10' # e.g. commit-hash or HEAD~N etc.
+          - NAME: 'Pruning Branch 2'
+            NEW_FIRST_COMMIT: HEAD~20 # e.g. commit-hash or HEAD~N etc.
             BRANCH: 'test'
             # Your defaults will be used unless you redefine a following env
             # TOKEN_NAME:
