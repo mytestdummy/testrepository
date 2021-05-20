@@ -57,4 +57,4 @@ jobs:
       - uses: mytestdummy/testaction@master
         with:
           new_first_commit: ${{ github.event.inputs.new_first_commit || env.NEW_FIRST_COMMIT }}
-          branch: ${{{ env.DEFAULT_BRANCH }}}
+          branch: ${{ env.DEFAULT_BRANCH }}
