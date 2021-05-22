@@ -17,7 +17,7 @@ name: 'Branch-Pruner-Default'
 # INPUTS as environmental variables (env) for not manually triggered workflows 
 env:
   NEW_FIRST_COMMIT: # e.g. commit-hash or HEAD~N etc.
-  TOKEN_NAME: 'YOUR_TOKEN' # target token name; insert only the name never the real value e.g. 'BRANCH_PRUNER_TOKEN'
+  TOKEN_NAME: # target token name; insert only the name never the real value e.g. 'BRANCH_PRUNER_TOKEN'
   # If any of the following env is blank, a default value is used instead
   REPOSITORY: # target repository e.g. 'dummy/mytargetrepo'
   BRANCH: # branch to be pruned e.g 'master'
@@ -45,7 +45,6 @@ on:
       token_name:
         description: 'Target token name (NO VALUE!)'
         required: true
-        default: 'YOUR_TOKEN'
       repository:
         description: 'Target repository'
         required: true
@@ -76,7 +75,7 @@ jobs:
           token: ${{ secrets[github.event.inputs.token_name] || secrets[env.TOKEN_NAME] }}
           fetch-depth: '0'
           ref: ${{ github.event.inputs.branch || env.BRANCH || env.DEFAULT_BRANCH }}
-      - uses: mytestdummy/testaction@master
+      - uses: myactionway/branch-pruner-action@v2.0
         with:
           new_first_commit: ${{ github.event.inputs.new_first_commit || env.NEW_FIRST_COMMIT }}
           branch: ${{ github.event.inputs.branch || env.BRANCH || env.DEFAULT_BRANCH }}
