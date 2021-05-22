@@ -17,7 +17,7 @@ name: 'Branch-Pruner-Easy'
 # INPUTS as environmental variables (env) for not manually triggered workflows 
 env:
   NEW_FIRST_COMMIT: # e.g. commit-hash or HEAD~N etc.
-  TOKEN_NAME: 'YOUR_TOKEN' # target token name; insert only the name never the real value e.g. 'BRANCH_PRUNER_TOKEN'
+  TOKEN_NAME: # target token name; insert only the name never the real value e.g. 'BRANCH_PRUNER_TOKEN'
   # 
   # THAT'S IT; JUMP TO THE TRIGGERS;
   DEFAULT_REPOSITORY: ${{ github.repository }} # repo with this file
@@ -38,7 +38,6 @@ on:
       token_name:
         description: 'Target token name (NO VALUE!)'
         required: true
-        default: 'YOUR_TOKEN'
 
 ########################################################################
 # THAT'S IT; YOU DON'T HAVE TO DEFINE ANYTHING IN THE FOLLOWING
@@ -54,7 +53,7 @@ jobs:
           token: ${{ secrets[github.event.inputs.token_name] || secrets[env.TOKEN_NAME] }}
           fetch-depth: '0'
           ref: ${{ env.DEFAULT_BRANCH }}
-      - uses: mytestdummy/testaction@master
+      - uses: myactionway/branch-pruner-action@v2.0
         with:
           new_first_commit: ${{ github.event.inputs.new_first_commit || env.NEW_FIRST_COMMIT }}
           branch: ${{ env.DEFAULT_BRANCH }}

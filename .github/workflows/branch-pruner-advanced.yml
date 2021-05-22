@@ -16,7 +16,7 @@ name: 'Branch-Pruner-Advanced'
 
 # INPUTS as environmental variables (env)
 env:
-  TOKEN_NAME: 'YOUR_TOKEN' # target token name; insert only the name never the real value e.g. 'BRANCH_PRUNER_TOKEN'
+  TOKEN_NAME: 'Your_TOKEN' # target token name; insert only the name never the real value e.g. 'BRANCH_PRUNER_TOKEN'
   # To change predefined values, just override them
   REPOSITORY: ${{ github.repository }} # target repository; predefined is the repo with this file
   USER_NAME: 'github-actions[bot]' # user who should commit
@@ -46,7 +46,7 @@ jobs:
           # FIRST TARGET BRANCH | DEFINE YOUR ENV IN THE FOLLOWING
           ##############################################################
           - NAME: 'Pruning Branch 1'
-            NEW_FIRST_COMMIT: HEAD~20 # e.g. commit-hash or HEAD~N etc.
+            NEW_FIRST_COMMIT: 'HEAD~10'
             BRANCH: 'master'
             # Your defaults will be used unless you redefine a following env
             # TOKEN_NAME:
@@ -57,7 +57,7 @@ jobs:
           # SECOND TARGET BRANCH | DEFINE YOUR ENV IN THE FOLLOWING
           ##############################################################
           - NAME: 'Pruning Branch 2'
-            NEW_FIRST_COMMIT: HEAD~20 # e.g. commit-hash or HEAD~N etc.
+            NEW_FIRST_COMMIT: 'HEAD~10'
             BRANCH: 'test'
             # Your defaults will be used unless you redefine a following env
             # TOKEN_NAME:
@@ -80,7 +80,7 @@ jobs:
           token: ${{ secrets[matrix.TOKEN_NAME] || secrets[env.TOKEN_NAME] }}
           fetch-depth: '0'
           ref: ${{ matrix.BRANCH || env.BRANCH }}
-      - uses: mytestdummy/testaction@master
+      - uses: myactionway/branch-pruner-action@v2.0
         with:
           new_first_commit: ${{ matrix.NEW_FIRST_COMMIT }}
           branch: ${{ matrix.BRANCH || env.BRANCH }}
