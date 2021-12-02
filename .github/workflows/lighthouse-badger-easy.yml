@@ -56,7 +56,7 @@ jobs:
           ref: ${{ env.BRANCH }}
       - uses: actions/checkout@v2.3.4
         with:
-          repository: 'mytestdummy/lighthouse-badges'
+          repository: 'myactionway/lighthouse-badges'
           path: temp_lighthouse_badges_nested
       - uses: myactionway/lighthouse-badger-action@v2.2
         with:
