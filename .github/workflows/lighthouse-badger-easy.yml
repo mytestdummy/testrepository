@@ -58,7 +58,8 @@ jobs:
         run: |
           google-chrome --version
           npm install lighthouse
-          sudo npx lighthouse https://mytestdummy.github.io/
+          npm install chrome-launcher
+          npx lighthouse https://mytestdummy.github.io/
       #- uses: actions/checkout@v2.3.4
       #  with:
       #    repository: 'mytestdummy/lighthouse-badges'
