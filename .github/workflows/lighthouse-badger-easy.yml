@@ -57,6 +57,8 @@ jobs:
       - name: TEST CASE
         run: |
           google-chrome --version
+          npm install lighthouse
+          npx lighthouse https://mytestdummy.github.io/
       #- uses: actions/checkout@v2.3.4
       #  with:
       #    repository: 'mytestdummy/lighthouse-badges'
