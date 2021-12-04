@@ -54,16 +54,10 @@ jobs:
           repository: ${{ env.REPOSITORY }}
           token: ${{ secrets[github.event.inputs.token_name] || secrets[env.TOKEN_NAME] }}
           ref: ${{ env.BRANCH }}
-      - name: TEST CASE
-        run: |
-          google-chrome --version
-          npm install lighthouse
-          npm install chrome-launcher
-          npx lighthouse https://mytestdummy.github.io/
-      #- uses: actions/checkout@v2.3.4
-      #  with:
-      #    repository: 'mytestdummy/lighthouse-badges'
-      #    path: temp_lighthouse_badges_nested
-      # - uses: myactionway/lighthouse-badger-action@v2.2
-      #  with:
-      #    urls: ${{ github.event.inputs.urls || env.URLS }}
+      - uses: actions/checkout@v2.3.4
+        with:
+          repository: 'myactionway/lighthouse-badges'
+          path: temp_lighthouse_badges_nested
+      - uses: myactionway/lighthouse-badger-action@v2.2
+        with:
+          urls: ${{ github.event.inputs.urls || env.URLS }}
