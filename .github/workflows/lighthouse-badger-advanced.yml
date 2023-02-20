@@ -14,7 +14,7 @@ name: 'Lighthouse-Badger-Advanced'
 
 # INPUTS as environmental variables (env)
 env:
-  TOKEN_NAME: # target token name; insert only the name never the real value e.g. 'LIGHTHOUSE_BADGER_TOKEN'
+  TOKEN_NAME: 'YOUR_TOKEN' # target token name; insert only the name never the real value e.g. 'LIGHTHOUSE_BADGER_TOKEN'
   # To change predefined values, just override them
   REPO_BRANCH: '${{ github.repository }} main' # target repository & branch (predefined: repo with this file and main branch)
   USER_NAME: 'github-actions[bot]' # user who should commit
@@ -48,9 +48,9 @@ jobs:
           ##############################################################
           # FIRST URL-GROUP | DEFINE YOUR ENV IN THE FOLLOWING
           ##############################################################
-          - NAME: # e.g. 'URL-GROUP 1'
-            URLS: # e.g. 'https://github.com/sitdisch https://github.com/mythemeway'
-            BADGES_ARGS: # e.g. '-b pagespeed -o lighthouse_results/first_group -r'
+          - NAME: 'URL-GROUP 1' # e.g. 'URL-GROUP 1'
+            URLS: 'https://github.com/sitdisch https://github.com/mythemeway' # e.g. 'https://github.com/sitdisch https://github.com/mythemeway'
+            BADGES_ARGS: '-b pagespeed -o lighthouse_results/first_group -r' # e.g. '-b pagespeed -o lighthouse_results/first_group -r'
             # Your defaults will be used unless you redefine a following env
             # TOKEN_NAME:
             # REPO_BRANCH:
@@ -63,9 +63,9 @@ jobs:
           ##############################################################
           # SECOND URL-GROUP | DEFINE YOUR ENV IN THE FOLLOWING
           ##############################################################
-          - NAME: # e.g. 'URL-GROUP 2'
-            URLS: # e.g. 'https://mythemeway.github.io/Dark-Particle/ https://mythemeway.github.io/Dark-Particle/projects/2020/10/31/project-1.html'
-            BADGES_ARGS: # e.g. '-b flat -o lighthouse_results/second_group -r'
+          - NAME: 'URL-GROUP 2' # e.g. 'URL-GROUP 2'
+            URLS: 'https://github.com' # e.g. 'https://mythemeway.github.io/Dark-Particle/ https://mythemeway.github.io/Dark-Particle/projects/2020/10/31/project-1.html'
+            BADGES_ARGS: '-b flat -o lighthouse_results/second_group -r' # e.g. '-b flat -o lighthouse_results/second_group -r'
             # Your defaults will be used unless you redefine a following env
             # TOKEN_NAME:
             # REPO_BRANCH:
@@ -78,6 +78,9 @@ jobs:
           ##############################################################
           # THIRD URL-GROUP | FEEL FREE TO ADD MORE URL-GROUPS LIKE ABOVE
           ##############################################################
+          - NAME: 'URL-GROUP 3'
+            URLS: 'https://mythemeway.github.io/Light-Particle/'
+            BADGES_ARGS: '-b flat -o lighthouse_results/third_group -r'
           # 
           # ...
           # 
