@@ -78,10 +78,10 @@ jobs:
           ##############################################################
           # THIRD URL-GROUP | FEEL FREE TO ADD MORE URL-GROUPS LIKE ABOVE
           ##############################################################
-          - NAME: 'URL-GROUP 3'
-            URLS: 'https://mythemeway.github.io/Light-Particle/'
-            BADGES_ARGS: '-b flat -o lighthouse_results/third_group -r'
-          # 
+          - NAME: 'URL-GROUP | Dark-Particle'
+            URLS: 'https://mythemeway.github.io/Dark-Particle/ https://mythemeway.github.io/Dark-Particle/projects/2020/10/31/project-1.html'
+            BADGES_ARGS: '-b pagespeed -o lighthouse_results/dark_particle -r'
+            COMMIT_MESSAGE: 'Lighthouse-Badger[bot]: Results Refreshed | Dark-Particle'
           # ...
           # 
     ####################################################################
