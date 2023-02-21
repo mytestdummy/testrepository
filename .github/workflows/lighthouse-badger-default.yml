@@ -1,0 +1,120 @@
+# Lighthouse-Badger-Default | GitHub Action Workflow
+# 
+# Description: Generates, adds & updates manually/automatically Lighthouse badges & reports from one/multiple input URL(s) to a selected target repository & branch
+# Author: Sitdisch
+# Source: https://github.com/myactionway/lighthouse-badger-workflows
+# License: MIT
+# Copyright (c) 2021 Sitdisch
+
+name: 'Lighthouse-Badger-Default'
+
+########################################################################
+# DEFINE YOUR INPUTS AND TRIGGERS IN THE FOLLOWING
+########################################################################
+
+# INPUTS as environmental variables for not manually triggered workflows 
+env:
+  URLS: # URL(s) to be checked e.g. 'https://github.com/sitdisch https://github.com/mythemeway'
+  TOKEN: 'YOUR_TOKEN' # target token; insert only the name never the real value e.g. 'YOUR_TOKEN'
+  # If any of the following env are blank, default are used instead
+  REPO&BRANCH: # target repository & branch e.g. 'dummy/mytargetrepo master'
+  BADGES-ARGS: # badge-style '-b {flat,...}', preceding-label '-l "Lighthouse "', output-path '-o lighthouse_results/dummy', save-report '-r', single-badge '-s'
+  RESULTS-TYPE: # 'mobile', 'desktop', 'both' or 'both_p' 
+  MOBILE-LIGHTHOUSE-PARAMS: # Lighthouse parameters mobile audit
+  DESKTOP-LIGHTHOUSE-PARAMS: # Lighthouse parameters desktop audit
+  USER-NAME: # user who should commit e.g. 'dummy'
+  USER-EMAIL: # e.g. 'dummy@gmail.com'
+  COMMIT-MESSAGE: # e.g. 'Lighthouse results added'
+  # 
+  # YOU DON'T HAVE TO DEFINE ANYTHING FOR THE DEFAULT VALUES
+  DEFAULT-REPO&BRANCH: '${{ github.repository }} master' # repo with this file and master
+  DEFAULT-BADGES-ARGS: '-b pagespeed -o lighthouse_results -r'
+  DEFAULT-RESULTS-TYPE: 'both'
+  DEFAULT-MOBILE-LIGHTHOUSE-PARAMS: '--throttling.cpuSlowdownMultiplier=2'
+  DEFAULT-DESKTOP-LIGHTHOUSE-PARAMS: '--preset=desktop --throttling.cpuSlowdownMultiplier=1'
+  DEFAULT-USER-NAME: 'github-actions[bot]'
+  DEFAULT-USER-EMAIL: '41898282+github-actions[bot]@users.noreply.github.com'
+  DEFAULT-COMMIT-MESSAGE: 'Lighthouse-Badger[bot]: Results Added'
+
+# TRIGGERS
+on:
+  # page_build:
+  # schedule: # Check your schedule here => https://crontab.guru/
+  #   - cron: '55 23 * * 0' # e.g. every Sunday at 23:55
+  # 
+  # YOU DON'T HAVE TO DEFINE ANYTHING FOR THE WORKFLOW_DISPATCH HERE
+  workflow_dispatch:
+    inputs:
+      urls:
+        description: 'URL(s) to be checked'
+        required: true
+      token:
+        description: 'Target token name (NO VALUE!)'
+        required: true
+      repo&branch:
+        description: 'Target repository & branch'
+        required: true
+      badges-args:
+        description: 'Badges arguments: -b, -l, -o, -r, -s'
+        required: true
+        default: '-b pagespeed -o lighthouse_results -r'
+      results-type:
+        description: 'Results type: mobile, desktop, both or both_p'
+        required: true
+        default: 'both'
+      mobile-lighthouse-params:
+        description: 'Lighthouse parameters mobile audit'
+        required: true
+        default: '--throttling.cpuSlowdownMultiplier=2'
+      desktop-lighthouse-params:
+        description: 'Lighthouse parameters desktop audit'
+        required: true
+        default: '--preset=desktop --throttling.cpuSlowdownMultiplier=1'
+      user-name:
+        description: 'User who should commit'
+        required: true
+        default: 'github-actions[bot]'
+      user-email:
+        description: 'User e-mail address'
+        required: true
+        default: '41898282+github-actions[bot]@users.noreply.github.com'
+      commit-message:
+        description: 'Commit message'
+        required: true
+        default: 'Lighthouse-Badger[bot]: Results Added'
+
+########################################################################
+# THAT'S IT; YOU DON'T HAVE TO DEFINE ANYTHING IN THE FOLLOWING
+########################################################################
+
+# Jobs
+jobs:
+  lighthouse-badger-default:
+    runs-on: ubuntu-20.04
+    steps:
+      - run: |
+          REPOSITORY=`expr "${{ env.REPO&BRANCH }}" : "\([^ ]*\)"`
+          BRANCH=`expr "${{ env.REPO&BRANCH }}" : ".* \([^ ]*\)"`
+          echo "REPOSITORY=$REPOSITORY" >> $GITHUB_ENV
+          echo "BRANCH=$BRANCH" >> $GITHUB_ENV
+        env:
+          REPO&BRANCH: ${{ github.event.inputs.repo&branch || env.REPO&BRANCH || env.DEFAULT-REPO&BRANCH }}
+      - uses: actions/checkout@v2.3.4
+        with:
+          repository: ${{ env.REPOSITORY }}
+          token: ${{ secrets[github.event.inputs.token] || secrets[env.TOKEN] }}
+          ref: ${{ env.BRANCH }}
+      - uses: actions/checkout@v2.3.4
+        with:
+          repository: 'myactionway/lighthouse-badges'
+          path: temp_lighthouse_badges_nested
+      - uses: mytestdummy/testaction@master
+        with:
+          urls: ${{ github.event.inputs.urls || env.URLS }}
+          badges-args: ${{ github.event.inputs.badges-args || env.BADGES-ARGS || env.DEFAULT-BADGES-ARGS }}
+          results-type: ${{ github.event.inputs.results-type || env.RESULTS-TYPE || env.DEFAULT-RESULTS-TYPE }}
+          mobile-lighthouse-params: ${{ github.event.inputs.mobile-lighthouse-params || env.MOBILE-LIGHTHOUSE-PARAMS || env.DEFAULT-MOBILE-LIGHTHOUSE-PARAMS }}
+          desktop-lighthouse-params: ${{ github.event.inputs.desktop-lighthouse-params || env.DESKTOP-LIGHTHOUSE-PARAMS || env.DEFAULT-DESKTOP-LIGHTHOUSE-PARAMS }}
+          user-name: ${{ github.event.inputs.user-name || env.USER-NAME || env.DEFAULT-USER-NAME }}
+          user-email: ${{ github.event.inputs.user-email || env.USER-EMAIL || env.DEFAULT-USER-EMAIL }}
+          commit-message: ${{ github.event.inputs.commit-message || env.COMMIT-MESSAGE || env.DEFAULT-COMMIT-MESSAGE }}
