@@ -16,7 +16,7 @@ name: 'Branch-Pruner-Advanced'
 
 # INPUTS as environmental variables (env)
 env:
-  TOKEN_NAME: # target token name; insert only the name never the real value e.g. 'BRANCH_PRUNER_TOKEN'
+  TOKEN_NAME: 'Your_TOKEN' # target token name; insert only the name never the real value e.g. 'BRANCH_PRUNER_TOKEN'
   # To change predefined values, just override them
   REPOSITORY: ${{ github.repository }} # target repository; predefined is the repo with this file
   USER_NAME: 'github-actions[bot]' # user who should commit
@@ -46,9 +46,9 @@ jobs:
           ##############################################################
           # FIRST TARGET BRANCH | DEFINE YOUR ENV IN THE FOLLOWING
           ##############################################################
-          - NAME: # e.g. 'Pruning Branch 1'
-            NEW_FIRST_COMMIT: # e.g. commit-hash or HEAD~N etc.
-            BRANCH: # branch to be pruned e.g. 'main'
+          - NAME: 'Pruning Branch 1' # e.g. 'Pruning Branch 1'
+            NEW_FIRST_COMMIT: 'HEAD~120' # e.g. commit-hash or HEAD~N etc.
+            BRANCH: 'main' # branch to be pruned e.g. 'main'
             # Your defaults will be used unless you redefine a following env
             # TOKEN_NAME:
             # REPOSITORY:
@@ -57,9 +57,9 @@ jobs:
           ##############################################################
           # SECOND TARGET BRANCH | DEFINE YOUR ENV IN THE FOLLOWING
           ##############################################################
-          - NAME: # e.g. 'Pruning Branch 2'
-            NEW_FIRST_COMMIT: # e.g. commit-hash or HEAD~N etc.
-            BRANCH: # branch to be pruned e.g. 'test'
+          - NAME: 'Pruning Branch 2'
+            NEW_FIRST_COMMIT: 'HEAD~8' # e.g. commit-hash or HEAD~N etc.
+            BRANCH: 'test' # branch to be pruned e.g. 'test'
             # Your defaults will be used unless you redefine a following env
             # TOKEN_NAME:
             # REPOSITORY:
